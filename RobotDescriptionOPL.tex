@@ -1,67 +1,59 @@
-\section*{Robot WALL-E Hardware Description [OPL Template]}
+\section*{``Cuboid-kun'' Hardware Description}
 \label{sec:annex-OPL}
-% In this section briefly describe the software and hardware of the robot
 
-\setlength\intextsep{0pt}
-\begin{wrapfigure}[10]{r}{0.3\textwidth}
-	\centering
-	\includegraphics[width=0.4\textwidth]{images/wall-e.jpg}
-	\caption{Robot WALL-E}
-	\label{fig:wall-e}
-\end{wrapfigure}
-
-Robot WALL-E has the patented \textit{\BnL Optimized Design} for garbage recollection. Specifications are as follows:
-
+\subsection*{Shared Base Hardware}
 \begin{itemize}
-	\item Base: \BnL all-terrain base (differential pair), 2.5m/s max speed.
-	\item Torso: \BnL compressor with solar charger.
-	\item Left and right arms: Mounted on torso. \BnL 7DOF, anthropomorphic. Maximum load: 20kg.
-	\item Neck: \BnL telescopic neck with pan and tilt.
-	\item Head: 3DOF \BnL Expressive Eyes
-	\item Robot dimensions: height: 1.2m (max), width: 0.7m depth 0.8m
-	\item Robot weight: 50kg.
+    \item Base: differential drive, 0.8 m/s max speed.
+    \item Dimensions: 370 x 370 x 670~[mm].
+    \item Weight (base only): 30~kg
+    \item Sensors:
+          \begin{itemize}
+              \item LIDAR x 5
+                    \begin{itemize}
+                        \item PaceCat x3
+                        \item AkuSense x2
+                    \end{itemize}
+              \item HC-SR04 Sonar x12
+              \item Kinect V2 x1
+              \item MPU-6050 IMU x1
+          \end{itemize}
+    \item Speaker: Arcs X-118 Car speaker
+    \item Microphone: RODE stereo video mic
 \end{itemize}
 
-\noindent\textit{Also our robot incorporates the following devices:}
+\subsection*{Manipulator}
 
-\begin{itemize}
-	\item \BnL Battery charge indicator
-	\item \BnL Auto-focus all-purpose cameras
-	\item \BnL 7DOF heavy duty fingers
-	\item \BnL Cockroach
-\end{itemize}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+                     & Cuboid-X           & Monar                     \\ \hline
+        type         & x Arm 7 (7 DOF)    & SCARA-type custom (8 DOF) \\
+        end-effector & two finger gripper & vacuum gripper            \\
+        payload      & 3.5 kg             & 500 g                     \\
+        hand camera  & Azure Kinect       & Realsense D415            \\
+    \end{tabular}
+\end{table}
 
 \section*{Robot's Software Description}
-% Please describe in this section the software you are using to control your robot. Consider the following example:
-
-\textit{For our robot we are using the following software:}
 
 \begin{itemize}
-	\item Platform: \BnL Operating System
-	\item Navigation: \BnL Navigator
-	\item Face recognition: None. Not designed for human interaction.
-	\item Speech recognition: \BnL All-purpose recognizer \cite{bnl1}.
-	\item Speech generation: None. Not designed for human interaction.
-	\item Object recognition: \BnL Trash Seeker Algorithm (See previous sections).
-	\item Arms control and two-hand coordination: \BnL automatic controller \cite{bnl2}.
-\end{itemize}
-
-\section*{External Devices}
-% Please describe in this section the external devices used by your robot. Consider the following example:
-
-\textit{WALL-E robot relies on the following external hardware:}
-
-\begin{itemize}
-	\item \BnL Garbage Compactor
-	\item \BnL EVA unit
-	\item \BnL Data Cluster
-	\item $3 \times$ \BnL Ultra-Power laptops.
-\end{itemize}
-
-\section*{Cloud Services}
-% Please describe in this section the Cloud Services and online software used by your robot. Consider the following example:
-
-\textit{WALL-E connects the following cloud services:}
-\begin{itemize}
-	\item Localization and mapping: \BnL Geolocalization system \cite{bnl3}.
+    \item Platform: Ubuntu 18.04 ROS melodic
+    \item Navigation: move\_base, eband\_local\_planner
+    \item Arm Control: MoveIt
+    \item Face recognition: Dlib.
+    \item Speech recognition: ODAS, Dialogflow
+    \item Speech generation: Google Speech API, Dialogflow
+    \item Human Tracking:
+          \begin{itemize}
+              \item spencer\_people\_tracking
+              \item OpenPose
+              \item Deep SORT
+          \end{itemize}
+    \item Object recognition:
+          \begin{itemize}
+              \item YOLO v3
+              \item jsk\_pcl\_ros
+              \item GoogLeNet
+              \item perch 2.0
+          \end{itemize}
 \end{itemize}
