@@ -65,48 +65,47 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-    This paper gives details about the RoboCup@Home Open Platform League (OPL) league team Chief Scientist Office, from SoftBank Corp. Japan, for the participation at the RoboCup@Home 2022 OPL, Bangkok, Thailand. Our goal is to develop a mobile manipulator that can perform tasks in everyday life. The performance required of a robotic arm varies depending on the task it is to perform. However, designing a robot arm that is best suited for a task will reduce its versatility, making it unsuitable for service robots. Therefore, we are investigating the performance required of service robots by using two different robot arms with different characteristics to perform the same task. The environment is always noisy in situations where a robot guides a person or carries luggage in real life. We are also investigating two different microphone configurations for robust speech recognition against environmental sounds. Our goal is for the robot to be able to recognize voice commands accurately in such environments. Our software is realized by combining several existing packages. The features we use in RoboCup@Home are described in detail in the body of this document. We would like to develop a robot that can freely combine mechanical components and ROS packages to develop useful functions in human life.
+    This paper details the RoboCup@Home Open Platform League (OPL) league team Chief Scientist Office from SoftBank Corp. Japan, for the participation at the RoboCup@Home 2022 OPL, Bangkok. Our goal is to develop a mobile manipulator that can perform tasks in everyday life.
+    We will compare two types of robotic arms and two types of microphones to study which hardware is more suitable for service robots.
+    Our software is composed of three layers: recognition layer, planning layer, and control layer. Each function is built around the ROS open source package. We will use this software to perform the tasks of door opening, person tracking, and speech recognition in RoboCup.
+    We would like to develop a robot that can freely combine mechanical components and ROS packages to develop useful functions in human life.
 \end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
-At SoftBank Corp. Chief Scientist Office, we are developing a reconfigure modular robots, similar to that of computer/automobile, and a flexible software framework. Our autonomous mobile robot ``Cuboid-kun'', equipped with a robot arm, will participate in the RoboCup@Home OPL. We previously participated in the World Robot Summit Future Convenience Store Challenge and won 3rd place in 2020. This will be our first time participating in RoboCup@Home OPL.
+At SoftBank Corp. Chief Scientist Office, we are developing a reconfigure modular robots, similar to that of computer/automobile, and a flexible software framework. Our autonomous mobile robot ``Cuboid-kun'', equipped with a robot arm, will participate in the RoboCup@Home OPL. We previously participated in the World Robot Summit Future Convenience Store Challenge (WRS FCSC)\footnote{https://wrs.nedo.go.jp/en/wrs2020/challenge/service/fcsc.html} won 3rd place in 2020. This will be our first time participating in RoboCup@Home OPL.
 
 
 \subsection{Focus of Research}
 % TODO: About people-tracking and object recognition
-When developing a mobile manipulator, the hardware design changes significantly depending on how much performance is required from the mobile base and manipulator. We participated in this competition to verify the performance required to realize ``robot that are useful to humans'' and investigate how much can be achieved with the existing technology. We implemented various functions using existing packages such as MoveIt but found many application problems such as long calculation time and unfinished functions. In the future, we plan to investigate and verify methods to solve the problems mentioned above and develop a mobile manipulator that can be used as a service robot.
+When developing a mobile manipulator, the hardware design changes significantly depending on how much performance is required from the mobile base and manipulator. We participated in this competition to verify the performance required to realize ``robots that are useful to humans'' and investigate how much can be achieved with the existing technology. We implemented various functions using existing packages such as MoveIt but found many application problems such as long calculation time and unfinished functions. Thus our focus is to investigate and verify methods to solve the problems mentioned above and develop a mobile manipulator that can be used as a service robot.
 
 % start p.2-----------
 \section{Hardware}
 % Pictures: cuboid-arm, cube-x
 % Overview
-The robot consists of a mobile base and an arm.
-``Cuboid-Kun'' is a mobile base robot operated by differential drive. It is equipped with sensors for obstacle avoidance, a power supply, and a computer.
-We will prepare two different arms and compare their performance.
-Photos of the robots with these two types of arms are shown in Fig.~\ref{fig:hardware}
+For RoboCup@Home OPL competition, we will prepare two robots, each with a different robot arm, for performance comparison. Figure~\ref{fig:hardware} shows the image of the two robot hardware: ``Cuboid-X'', the robot equipped with xArm 7\footnote{https://www.ufactory.cc/pages/xarm} robot arm, and ``Monar'', the robot equipped with SCARA-type robotic arm. Both robots share the same mobile base, ``Cuboid-kun''.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.5\linewidth]{images/Hardware.png}
-    \caption{``Cuboid-kun'' hardware overview}
+    \caption{Image of two robots: ``Monar'' (left) and ``Cuboid-X'' (right).}
     \label{fig:hardware}
 \end{figure}
 
 % start p.3-----------
 \subsection{Mobile Base}
-``Cuboid-kun'' is a mobile base that our team is developing.
-It can carry a payload of 20~kg, which is enough for a robotic arm to be mounted on it.
-This mobile base is intended to be used in houses and office buildings, and therefore has a small footprint of 370~mm inside a square.
+``Cuboid-kun'' is a self-navigating autonomous mobile robot that our team is developing. It is equipped with a computer, a power supply, and multiple sensors for obstacle avoidance. It is operated with differential drive and can carry a payload of 20~kg. The mobile base is intended to be used in houses and office buildings, and therefore has a small footprint of 370~mm inside a square. In addition, the hardware was designed to be reconfigurable, and therefore we can easily attach external modules\footnote{https://www.signagekun.com/cuboid} to the robot, such as a robotic arm.
 
 % In-wheel motor, VESC,
 % start p.4-----------
 \subsection{Robotic Arm}
 % SCARA arm, x-arm
-We equipped the robot with two different arms.
-One is a SCARA-type robotic arm designed by our team. It was designed for the WRS FCSC\footnote{https://wrs.nedo.go.jp/en/wrs2020/challenge/service/fcsc.html}. The tip of the arm is thin, and it is suitable for handling inside the shelf. The end-effector has a small suction cup and a compact RGB-D hand camera (realsense d415).
-The other that cuboid-x is equipped is a commercially available robot arm called x-arm. This robot arm is composed of large actuator modules, and its movable area is limited in a small space.The end-effector is a two-fingered gripper and a high-performance RGB-D hand camera (Azure kinect).
+``Monar'' is equipped with a SCARA-type robotic arm designed by our team. The robot arm has 8 degrees of freedom and can carry a small payload of 500~g. The end-effector is equipped with a vacuum gripper with two suction cups and a compact RGB-D hand camera (RealSense D415). The robot arm was designed for WRS FCSC, where one of the key tasks is to rearrange multiple objects on a shelf. To handle objects within a small space, we designed the robot arm to have a large operation space with thin and compact end-effectors.
+
+``Cuboid-X'' is equipped with xArm 7, a commercially available robot arm with 7 degrees of freedom. This robot arm is composed of large actuator modules and can carry a payload of 3.5~kg although the robot arm has small operation space compared to ``Monar''. The end-effector is equipped with a two-finger gripper and a high-performance RGB-D hand camera (Azure Kinect).
+
 
 \subsection{Microphones}
 % ODAS
@@ -115,54 +114,53 @@ We are currently experimenting with two different types of microphones, and plan
 One is a highly directional microphone, which is often used in RoboCup@Home.
 When the speaker is in front of the microphone, it is easier to recognize the speaker's voice. The disadvantage of using this type of microphone is that the speaker must stand in front of the microphone.
 
-We use a microphone array module such as XMOS.
-Another method that we are trying is to use a microphone array for source separation.
+Another method we are trying is to use a microphone array module, such as XMOS, for source separation.
 We use a software called ODAS~\cite{Grondin201963} to perform the source separation.
 This feature enables us to recognize speech in noisy environments by separating the speaker's sound source. Furthermore, it can distinguish between two or more people speaking at the same time. Figure~\ref{fig:odas} shows the sound source localization using ODAS\_WEB.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.6\linewidth]{images/odas_web_side.png}
-    \caption{Sound source localization}
+    \caption{Sound source localization.}
     \label{fig:odas}
 \end{figure}
 
 \section{Software}
 % Figure: System Overview
-All our ``Cuboid-kun''-based robots, such as Monar and Cuboid-X, run on a common system.
-The overview of our software system, shown in Fig.~\ref{fig:software} is comprised of three main layers:
+All our ``Cuboid-kun''-based robots, such as ``Monar'' and ``Cuboid-X'', run on a common system.
+The overview of our software system, shown in Fig.~\ref{fig:software}, is comprised of three main layers:
 \begin{enumerate}
     \item the perception layer, collection of software modules that takes robot’s sensor data and process them to create symbolic representations of the environment,
     \item the planning layer, collection of software modules that takes the state of the environment to evaluate and generate a sequence of appropriate robot behaviors, and
-    \item the control layer, collection of software modules that translates the planned behavior and sends appropriate commands to the actuators for the robot to interact with the environment
+    \item the control layer, collection of software modules that translates the planned behavior and sends appropriate commands to the actuators for the robot to interact with the environment.
 \end{enumerate}
-Robot Operating System (ROS) is used as the primary framework for software module interaction with each software module representing one or several ROS’s nodes.
+The primary framework for software module interaction is Robot Operating System (ROS), with each software module representing one or several ROS nodes.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.6\linewidth]{images/SoftwareOverview.png}
-    \caption{``Cuboid-kun'' software overview}
+    \caption{``Cuboid-kun'' software overview.}
     \label{fig:software}
 \end{figure}
 
 
-\subsection{Object Pose Estimator Algorithm}
+\subsection{Object Classification and Pose Estimator Algorithm}
 \label{sec:pose_estimation}
 % plane top object detection (jsk)
 % YOLO
-We use ClusterPointIndices, a function of jsk\_pcl\_ros\footnote{https://github.com/jsk-ros-pkg/jsk\_recognition} ROS package, to extract the point cloud data from the object on a plane and estimate the collision shapes.
-On the other hand, the YCB object kit used in the RoboCup@Home league has an open dataset, and several more accurate pose estimation methods have been proposed for these objects~\cite{Agarwal2020PERCH2,Bekiroglu2020,Chatzilygeroudis2020}.
-Also PERCH 2.0 to estimate more detailed poses of objects, as shown in Fig.~\ref{fig:perch}, although its usage is limited.
+We mainly use ClusterPointIndices, a function of jsk\_pcl\_ros\footnote{https://github.com/jsk-ros-pkg/jsk\_recognition} ROS package, to extract the point cloud data from the object on a plane and estimate the object's pose and collision shapes.
+However, for YCB objects used in RoboCup@Home league open source dataset, we used PERCH 2.0~\cite{Agarwal2020PERCH2} to estimate more accurate poses, as shown in Fig.~\ref{fig:perch}.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.6\linewidth]{images/pearch.png}
-    \caption{Spam can pose estimation with PERCH 2.0}
+    \caption{Spam can pose estimation with PERCH 2.0.}
     \label{fig:perch}
 \end{figure}
-After estimating the object’s pose, We classify the object by YOLO.
-However, since the RoboCup@Home league require more detailed recognition results than the MSCOCO dataset, we also a classifier trained using GoogLeNet~\cite{Massouh2019} for unknown object.
+
+We use YOLO, trained with MSCOCO dataset, for object classification.
+However, since the RoboCup@Home league requires more detailed recognition results than the MSCOCO dataset, we also use a classifier trained using GoogLeNet~\cite{Massouh2019} for unknown objects.
 
 \subsection{Grasping Object Algorithm}
 \label{sec:grasp_object}
-We designed the object grasping algorithm in the following sequence. We first estimate the object poses using jsk ROS package as described in section~\ref{sec:pose_estimation}. We also estimate the support table’s (the area where the object resides on) collision shape and pose. After estimating the object’s pose and collision shapes along with the support table, we generate the grasp candidates using HandleEstimator, another function of jsk ROS package. Finally, we provide the calculated information to MoveIt’s\footnote{https://github.com/ros-planning/moveit} planning scene and use MoveIt’s pick and place pipeline to compute the manipulator’s trajectory path to grasp the object. Figure~\ref{fig:grasp_object} visualizes the grasping object algorithm for grasping a pet bottle.
+We designed the object grasping algorithm in the following sequence. We first estimate the object poses and collision shapes using the object pose estimator algorithm as described in section~\ref{sec:pose_estimation}. We also estimate the support table’s (the area where the object resides on) collision shape and pose. After estimating the object’s pose and collision shapes along with the support table, we generate the grasp candidates using HandleEstimator, another function of jsk ROS package. Finally, we provide the calculated information to MoveIt’s\footnote{https://github.com/ros-planning/moveit} planning scene and use MoveIt’s pick and place pipeline to compute the manipulator’s trajectory path to grasp the object. Figure~\ref{fig:grasp_object} visualizes the grasping object algorithm for grasping a pet bottle.
 
 \begin{figure}[tbp]
     \centering
@@ -180,36 +178,36 @@ We designed the object grasping algorithm in the following sequence. We first es
         \begin{minipage}[t]{0.45\hsize}
             \centering
             \includegraphics[width=0.8\linewidth]{images/door_yolo.png}
-            \caption{Door detection with YOLO}
+            \caption{Door detection with YOLO.}
             \label{fig:door_detection}
         \end{minipage}  &
         \begin{minipage}[t]{0.45\hsize}
             \centering
             \includegraphics[width=0.8\linewidth]{images/normal.png}
-            \caption{Door plane estimation}
+            \caption{Door plane estimation.}
             \label{fig:door_plane}
         \end{minipage}    \\
         \begin{minipage}[t]{0.45\hsize}
             \centering
             \includegraphics[width=0.4\linewidth]{images/handle_pose.png}
-            \caption{Handle pose estimation}
+            \caption{Handle pose estimation.}
             \label{fig:handle_pose}
         \end{minipage} &
         \begin{minipage}[t]{0.45\hsize}
             \centering
             \includegraphics[width=0.8\linewidth]{images/grasp_door_handle.png}
-            \caption{Result of grasping handle}
+            \caption{Result of grasping the handle.}
             \label{fig:grasp_handle}
         \end{minipage}
     \end{tabular}
 \end{figure}
-First, We use the YOLO to recognize doors and handle positions.
+We designed the door opener algorithm in the following sequence. First, we use YOLO to recognize doors and handle positions.
 The door dataset and the trained model of YOLO are described in \cite{Arduengo_2021}.
 Figure~\ref{fig:door_detection} shows the results of door detection by YOLO.
-Even a double-door can be detected as two doors along the center slit.
+YOLO can even detect a double-door as two doors along the center slit.
 Next, we estimate the pose of the door using jsk ROS package as described in section~\ref{sec:pose_estimation}.
 In Fig.~\ref{fig:door_plane}, the blue arrows represent the normal vector of the door, and in Fig.~\ref{fig:handle_pose}, the red bounding box indicates that the handle is detected on the plane of the door.
-After estimating the handle pose, the robot grasp the handle using MoveIt as described in section~\ref{sec:grasp_object}.
+After estimating the handle pose, the robot grasps the handle using MoveIt as described in section~\ref{sec:grasp_object}.
 The robot achieved door opening by moving backward in the right direction based on the position of the handle and the door.
 Figure~\ref{fig:grasp_handle} shows how the robot grasped the handle based on these estimation results.
 
@@ -219,35 +217,37 @@ Figure~\ref{fig:grasp_handle} shows how the robot grasped the handle based on th
 % re-identification (deep sort)
 For detecting and tracking people we use the ROS package for spencer's robot~\cite{Linder2016}.
 The package can fuse several different detection results such as leg detection by 2D LiDAR and upper body detection by RGB-D.
-We also integrated the results of pose estimation by OpenPose~\cite{Cao2019} and image recognition by YOLO to develop a tracking system that is even more robust to lost targets as shown in Fig.~\ref{fig:track_people}.
+We also developed a tracking system that is even more robust to lost targets by integrating pose estimation results by OpenPose and image recognition results by YOLO as shown in Fig.~\ref{fig:track_people}.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.8\linewidth]{images/people_track.png}
-    \caption{Our people tracking system overview}
+    \caption{People tracking system overview.}
     \label{fig:track_people}
 \end{figure}
+
 For pose estimation, we considered HRNet~\cite{sun2019deep} and CenterNet~\cite{zhou2019objects} as well as OpenPose.
 CenterNet is a method for anchor-less object detection similar to OpenPose.
 CenterNet can achieve the same processing speed with about $\frac{1}{3}$ of the GPU memory usage of OpenPose, but it assumes that all key points are always present in the bounding box.
 In robotics, this result is not desirable because the whole body is often not within the angle of view of the camera.
 On the other hand, HRNet provides higher performance by maintaining high resolution even during the process.
 However, the processing speed is about 1~Hz, inferior to OpenPose.
-HRNet is preferable if you just want to estimate poses in a static environment, but we needed to use these results in a dynamic environment for tracking, so we adopted OpenPose.
-However, these tracking methods are prone to lose or swap tracking targets when the person being tracked hides in the shadows or overlaps with others.
+HRNet is preferable to estimate poses in a static environment, but we needed to use these results in a dynamic environment for tracking, so we adopted OpenPose.
+
+Furthermore, these tracking methods are prone to lose or swap tracking targets when the person being tracked hides in the shadows or overlaps with others.
 To avoid that, we have introduced an algorithm for re-identification using Deep SORT~\cite{Wojke2018deep}.
 
 
 \subsection{Speech Recognizer Algorithm}
 We use the Google Speech API and Dialogflow to recognize speech phrases and responses.
-We also use the snowboy\footnote{https://github.com/Kitt-AI/snowboy} to detect hotword to be used at the start of a conversation.
+We also use the snowboy\footnote{https://github.com/Kitt-AI/snowboy} to detect hotword at the start of a conversation.
 Hotword triggers contribute greatly to recognizing conversational content with high accuracy, but without a sufficient number of training samples, snowboy cannot handle all of the people.
 Therefore, we use hotword detection only for conversations with operators.
 
 \section{Contribute}
-We are conducting some demonstration experiments using the developed robot\footnote{Meet the Robots of Smart City Takeshiba, Part 1: A Delivery Robot that Obeys Traffic Signals. https://www.softbank.jp/en/sbnews/entry/20210716\_01}\footnote{SoftBank R\&D: Evaluating the Latest Technologies with a View to Commercialization. https://www.softbank.jp/en/sbnews/entry/20210716\_01}, and are providing the robot to some Japanese companies for research\footnote{Developed ``in-building mobile environment measurement / notification system''. https://www.toda.co.jp/news/2021/20211108\_002989.html}. Commercially available robots are AGVs for warehouses that are large and have low obstacle avoidance ability or communication robots with low power. Our robot can avoid all obstacles and drive safely even in narrow passages such as offices of Japanese companies. Our mobile base can carry a payload of 20~kg, so it can also carry a robotic arm and run. In addition to technical issues, we are also working on issues related to durability and safety by conducting demonstration experiments. We believe that the new functions developed for RoboCup@Home will lead to more social contributions in the future.
+We have conducted several demonstration experiments with ``Cuboid-kun'' in multiple environments and scenarios and have provided ``Cuboid-kun'' as a research base to several external Japanese companies.\footnote{Meet the Robots of Smart City Takeshiba, Part 1: A Delivery Robot that Obeys Traffic Signals. https://www.softbank.jp/en/sbnews/entry/20210716\_01}\footnote{SoftBank R\&D: Evaluating the Latest Technologies with a View to Commercialization. https://www.softbank.jp/en/sbnews/entry/20210716\_01}\footnote{Developed ``in-building mobile environment measurement / notification system''. https://www.toda.co.jp/news/2021/20211108\_002989.html}.
 
 \section{Conclusions and future work}
-In this paper, we presented how we are developing our robots for the RoboCup@Home. Using voice recognition, navigation, person tracking, and object recognition, we have implemented several tasks for RoboCup@Home. Each of these functions has its own challenges in terms of speed and success rate. We will be comparing algorithms, adjusting parameters, adding functions and debugging for the RoboCup@Home. We will also compare two different configurations of microphones and arms, and adopt the better method. What to use as a benchmark is still an issue. It is also our goal to improve the quality of the robot so that it can be commercially available.
+In this paper, we presented how we are developing our robots for the RoboCup@Home. Using voice recognition, navigation, person tracking, and object recognition, we have implemented several tasks for RoboCup@Home. Each of these functions has its challenges in terms of speed and success rate. We will be comparing algorithms, adjusting parameters, adding functions, and debugging for the RoboCup@Home. We will also compare two different configurations of microphones and arms, and adopt the better method. What to use as a benchmark is still an issue. It is also our goal to improve the quality of the robot so that it can be commercially available.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
