@@ -50,6 +50,7 @@
 \usepackage{csquotes}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{lastpage}
 \usepackage[all]{nowidow}
 \usepackage[inline]{enumitem}
@@ -73,9 +74,9 @@
 % Title
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{SkyNet 2023 Team Description Paper}
+\title{Chief Scientist Office 2023 Team Description Paper}
 
-\author{Main-author \and Co-author \and Team Members}
+\author{Takaaki Numi, \and Airi Yochi, \and Tatsuro Sakachi, \and Yuushi Kaida, \and Gakuto Okanoto, \and Joshua Superman}
 \institute{Affiliation name and address, \\
 \texttt{http://devoted-web-site.url}}
 
@@ -90,166 +91,179 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-The present document serves as template for the 2023 Team Description Papers to be submitted for qualification in the 2023 RoboCup@Home international competition to be held in Bordeaux, France.
+	This paper presents SoftBank Corp. Japan team Chief Scientist Office’s new mobile manipulator “SOAR” for RoboCup 2024 @Home Open Platform League.
+	Differing from our previous participation with “Cuboid-X,” a robot assembled from commercial products, “SOAR” integrates both custom-developed and commercial components, a significant step toward developing a customizable and affordable robotic platform.
+	Our main achievement this year has been the successful integration of various hardware components and software development to tackle RoboCup challenges.
 
-We strongly recommend abstracts to be limited to 250 words, and follow the three-paragraph rule: introduction and relevance, approach, and contributions. This will help your readers to get a better understanding of what you're about to present.
+	Our approach includes detailed hardware design and calibration, such as the arm and the sensor-rich head unit.
+	The software focuses on developing systems, such as object and speech recognition, tailored to the dynamic environment of RoboCup.
 
-Your abstract must state your main research line and your scientific achievements of this year, namely which problems have been solved and where the research group focus is directed.
-Summarize your achievements and why the conducted research is relevant in robotics.
-Additionally, you may address your approach to the problem solution and which results do you expect to obtain.
+	“SOAR” embodies our vision of a robotic system that combines modularity with cost-effectiveness.
+	As we continue to refine SOAR’s capabilities further, we are optimistic about its potential to create an adaptable, cost-effective robotic platform for a variety of applications and fields.
+
 \end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
-The present document is a template for the Team Description Paper to be submitted for qualification in the 2023 RoboCup@Home international competition to be held in Bordeaux, France.
+This paper details the RoboCup @Home Open Platform League team Chief Scientist Office from SoftBank Corp. Japan.
+This is our second appearance at RoboCup @Home Open Platform League.
+Since our last participation in 2022, we have made significant improvements, which include the introduction of our new mobile manipulator “SOAR.”
 
-A Team Description Paper (hereinafter referred as TDP) is an 8-pages long scientific paper, detailing information on the technical and scientific approach of the team's research.
-An updated version of this template can be download from {\small\url{https://github.com/RoboCupAtHome/TDPTemplate}}.
-Contributions to enhancing this template (e.g.~typos, grammatical errors, etc.) are always welcome either as issues or pull requests.
+At SoftBank Corp. Chief Scientist Office, we aim to pioneer a customizable and affordable commercial robot platform akin to the modular ease found in computer assembly or the historical T-Ford model.
+Our mission is to democratize robotics, making it accessible and adaptable for research and commercial use.
+We believe in a future where integrating robotics into business is as straightforward as selecting components for a custom PC build.
+With “SOAR” as a stepping stone, we aim to develop a versatile platform that celebrates modularity in both hardware and software, allowing seamless integration and upgrades through a suite of interchangeable modules.
 
-\textbf{Copyright note:} All TDPs sent for qualification are made publicly available in the \href{https://github.com/RoboCupAtHome/AtHomeCommunityWiki/wiki}{RoboCup@Home Wiki} for further reference.
-On submitting, teams implicitly grant permission to RoboCup@Home and the RoboCup Federation to copy, distribute, upload, publish, and use the manuscript to promote the event and the league at convenience.
-
-\section{TDP contents}
-While writing the TDP, focus on your current research, clearly stating all scientific contribution, and why are they important for you and the league. The length of the TDP is limited to 8 pages including references. \textbf{\color{red} Exceeding the number of pages will automatically void your application}.
-
-The Team Description Paper shall use the \textit{Springer LNAI format}\footnotemark~used in the RoboCup Symposium submissions, and has a hard limit of 8 pages without altering margins or spacing (including references but excluding the annex).
-Please notice that changes to the margins, space between paragraphs, and font size are not allowed (such TDP will be rejected). We suggest to leave the hardware and software description for the end of the paper in the annex.\footnotetext{\url{http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0}}
-
-\textbf{Important Notice:} Attaching to the requested format is important for the camera ready version of the TDPs can be included in the memories of the competition.
-
-\noindent The TDP must contain the following information:
-
-\begin{itemize}[nosep]
-	\item Innovative technology and scientific contribution
-	\item Focus of research/research interests
-	\item Re-usability of the system for other research groups
-	\item Applicability of the robot in the real world
-	\item \textbf{DSPL \& SSPL:} When the robot depicted in the TDP or Team Video is different from the league's standard one, the TDP must clearly state how the addressed approach and described software will be adapted to the standard platform robot.
+\subsection{Focus of research}
+Our research is motivated by the ambition to develop a customizable and affordable robot platform.
+We recognize the constraints of current technologies and are committed to exploring their limits and potential. Key areas of our interest include but are not limited to:
+\begin{itemize}
+	\item Modularity and Configurability: Investigate how to design a system that allows for easy integration and customization of hardware modules.
+	\item Technological Feasibility: Assessing the capabilities of existing technologies to meet our affordability and performance criteria.
+	\item Device Integration: Tackling the hardware challenges related to the seamless integration of diverse devices and components
+	\item Software Optimization: Addressing the limitation of current software modules, such as MoveIt, by enhancing computation speed and completing critical functions.
 \end{itemize}
+We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
 
-The language for the whole TDP, including graphics, tables, images, and all additional content must be English. Content in other languages must be translated.
+\section{Hardware}
+“SOAR” is a mobile manipulator comprising of four main components; the mobile base, the manipulator, the torso unit, and the head unit.
+The mobile base and the manipulator are commercially available products while the torso and head units are developed in-house and designed by our team.
+The hardware is designed with a modular approach so that it not only facilitates customization but also simplifies maintenance and upgrades, allowing for the interchange of components as needed.
+Fig. \ref{fig:soar_overview} shows the the image of “SOAR.”
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/soar_overview.png}
+	\caption{Image of SOAR.}
+	\label{fig:soar_overview}
+\end{figure}
+
+\subsection{Mobile Base}
+SOAR’s mobile base is a 2-wheel differential drive mobile base developed by F-Design\footnote{\url{https://f-ds.jp/}}.
+It is supplemented with two casters and each driving wheel and caster are equipped with suspensions for smoother movement and stability.
+The base has a maximum speed of 3.0 km/h.
+We made additional modifications to the unit, equipping it with a LiDAR and an IMU sensor for navigation.
+We also integrated a docking charging connector, enabling SOAR to autonomously recharge its batteries once depleted, enhancing its operational autonomy and efficiency.
+
+\subsection{Torso and Manipulator}
+SOAR’s arm is composed of two units; the torso and the manipulator.
+The manipulator is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
+It has seven degrees of freedom with a payload of 3.5 kg.
+The torso unit, developed by our team, is a linear actuator with one degree of freedom.
+The torso unit elevates the manipulator, providing a clearance of 460 mm, which significantly enhances the arm’s reach and versatility.
+The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
+
+\subsection{Head Unit}
+The head unit has two main purposes: recognizing and understanding the environment and facilitating social interaction with people.
+The head unit is a hub of sensory and interactive technology, equipped with various devices including a RGB-D camera, a zoom camera, a thermal camera, LED lights, a head display, a microphone, and a speaker.
+The device placement is shown in Fig. \ref{fig:head}
+Additionally, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/head_unit.png}
+	\caption{Device placement on the head unit.}
+	\label{fig:head}
+\end{figure}
+
+\subsection{Calibration}
+SOAR’s design incorporates interchangeable modules like the manipulation unit.
+This, however, brings forth unique calibration challenges.
+These challenges arise due to alignment issues, accuracy demands, adaptability needs, and the importance of consistent performance across different modules.
+Calibration, therefore, becomes essential to ensure that each module functions correctly within the system.
+
+To address this, we employ the \text{robot\_calibration}\cite{ferguson2015robust} ROS package.
+This package allows us to fine-tune the arm, aligning the measured joint values with their actual physical counterparts, ensuring accuracy.
+While we achieved good calibration results for the manipulator unit, as shown in Fig. \ref{fig:calibration}, the task is more challenging for the head unit and is still undergoing refinement to reach the desired level of accuracy.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/calibration.png}
+	\caption{Calibration results. Left show the discrepancies between the measured joint and the actual joint. Right shows the measured
+		joint and actual joint after calibration.}
+	\label{fig:calibration}
+\end{figure}
+
+\section{Software}
+The overview of our software system, shown in Fig. \ref{fig:overview} is comprised of three main layers:
+\begin{enumerate}
+	\item The perception layer, a collection of software modules that take the robot’s sensor data and process them to create a symbolic representation of the environment,
+	\item the planning layer, a collection of software modules that take the state of the environment to evaluate and generate a sequence of appropriate robot behaviors, and
+	\item the control layer, the collection of software modules that translates the planned behavior and sends appropriate commands to the actuators for the robot to interact with the environment
+\end{enumerate}
+The primary framework for software module interaction is Robot Operating System (ROS), with each software module representing one or several ROS nodes.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/software_overview.png}
+	\caption{SOAR software overview.}
+	\label{fig:overview}
+\end{figure}
+
+\subsection{Object Recognition}
+Object detection and 3D localization are handled through the seamless integration of existing technologies.
+We employed ultranlytics’s YOLO v8\cite{yolov8_ultralytics} for its object recognition capabilities, producing bounding boxes with labels for each detected object in the robot’s field of view.
+To understand the object’s spatial orientation and structure, we used the \text{jsk\_pcl\_ros}\footnote{\url{https://github.com/jsk-ros-pkg/jsk\_recognition}} package for its robust point cloud processing.
+We used the EuclideanClustering and the ClusterPointIndices functionalities within this package to segment and cluster point cloud data within the detected bounding boxes from YOLO v8 and generate 3D collision boxes along with its pose.
+The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline.png}
+	\caption{Object detection pipeline.
+		YOLO v8's bounding boxes and the point cloud data are given to \text{jsk\_pcl\_ros} package to generate 3D collision boxes which are passed to MoveIt planning scene.}
+	\label{fig:object_detection_pipeline}
+\end{figure}
+
+\subsection{Creating dataset}
+To train YOLO v8 for object recognition in the dynamic nature of RoboCup competitions, where new objects are often introduced on the day of the event, our team has developed a robust method for dataset preparation.
+The process involves capturing images of objects from multiple angles and capturing background images on the RoboCup field.
+We then crop the object images using a GUI tool and overlay them onto the background images, creating composite images.
+We then generate a COCO-style dataset with the composite images.
+An example is shown in Fig. \ref{fig:dataset}.
+This method significantly simplifies the annotation process, allowing us to create datasets with new objects within a day, thus enabling rapid adaptation and expansion of our object recognition system.
+
+We are continuously working to enhance our model’s capability to recognize challenging objects, such as transparent objects or surfaces with reflective properties like silver.
+We are also refining our data collection techniques to consider factors such as varying camera angles and light intensities, which are critical not only for realistic and effective annotation but also for creating 3D simulation models.
+These improvements are aimed at increasing the robustness and accuracy of our object recognition system under varied and unpredictable competition conditions.
+
+\begin{figure}[tbp]
+	\centering
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=1.0\linewidth]{images/dataset1.png}
+		\caption{Use turn-table to capture images of objects from multiple angles and crop the object images using GUI.}
+	\end{subfigure}
+	\vfill
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=1.0\linewidth]{images/dataset2.png}
+		\caption{Generate composite images and used them as dataset for object recognition.}
+	\end{subfigure}
+	\caption{Dataset creation process.}
+	\label{fig:dataset}
+\end{figure}
+
+\subsection{Speech Recognition And Interaction}
+
+We use EfficientWord-Net\cite{efficientnet} to detect hotword to initiate the conversion.
+Once engaged, we employed Google Dialogflow for conversation, which can interpret spoken phrases and generate relevant responses based on our predefined conversational settings.
+For vocal output, we use gTTS\footnote{\url{https://github.com/pndurette/gTTS}} to convert text to speech.
+
+In addition to the current pipeline, we are also exploring the integration of ChatGPT\cite{openai2023gpt4} as a potential replacement for Google Dialogflow to enrich SOAR’s conversational capabilities.
+To facilitate this transition, we use Silero VAD\cite{SileroVAD} to segment the voice signals and Whisper\cite{radford2022robust} to convert speech to text.
 
 
-\section{Do's and Don'ts}
-This section elaborates on a set of \textit{hits} about what to do (or what to avoid) when writing a TDP.
-Following these guidelines may help your team to obtain qualification, although none is mandatory.
-When writing a TDP, the best guidelines are the ones that help you to present your research in a clear, concise, and effective manner.
-
-\subsection{No more than 8 pages}
-Seriously. Exceeding the number of pages is the easiest way of forfeiting your qualification.
-
-\subsection{Summarize your achievements}
-In order to promote participation in local tournaments, experience is heavily weighted during the qualification process.
-Dedicating one paragraph to summarize the experience and achievements of your team in local tournaments is therefore strongly advised.
-
-\subsection{Save space for Science}
-Describing your team in detail (e.g.~number of undergrads, grads, and PhD students) is of little interest for the league, and uses some valuable space that can be used instead to describe your research.
-It is strongly advised that teams describe instead their approaches and achievements.
-Our reviewers are far more interested in knowing how your robot manages to solve a task and reading about your ground-breaking discoveries, than in the history of the team.
-
-\subsection{Avoid describing your robot}
-Unless your research revolves around hardware design and implementation (e.g.~mechanical schematics, control, low-cost solutions), it is better to omit this section, specially in Standard Platform Leagues (the HW is already known to us).
-Detailed software and hardware descriptions can be provided in the appendix, for which there is no page limit.
-
-\subsection{Avoid explaining ROS}
-With over 90\% usage in RoboCup@Home, it can be assumed that all reviewers are familiar with ROS.
-Therefore, unless your research extends or enhances an specific ROS package, there is no need to explain how it works.
-Moreover, TDPs revolving around the basics of ROS are typically rejected.
-
-\subsection{Keep it simple}
-Although reviewers share a common background in the domain of service robotics, is very unlikely that they are actively involved in your research field.
-Therefore, you can't expect that we are familiar with the State-of-the-Art.
-The organizing committee kindly asks authors to keep this in mind and write in a more descriptive and less analytic way.
-The main goal of a TDP is tell others about your latest practical achievement, how your team managed to solve the problem, what strategy was chosen and why, while at the same time trying to convince your reader that what you are doing is useful or applicable in a daily life scenario.
-
-\subsection{Mind your writing}
-We strongly advise non-native speakers to double check the readability of their TDP's before submission.
-More often than not, a team may not obtain qualification if the reviewers can't understand the ideas of the authors.
-
-Likewise, and as a courtesy to our reviewers, we kindly ask native speakers to write as neutral as possible and refrain from using colloquial expressions and slang.
-Although all reviewers are fluent English readers (even sometimes native speakers), they may not be proficient in a particular idiom such as Australian, British, or American English.
-This situation may lead to ambiguities and misunderstandings which could reduce the submitter's score, reducing the chances of qualifying.
-
-\section{TDP Annex}
-The TDP's Robot Description Annex is an appendix of arbitrary length that must be attached at the end of the TDP and summarize the robot's software and hardware technical specifications.
-
-The purpose of the annex is to provide an overview on how the robot operates.
-This has several purposes.
-First, it allows the league to track changes in hardware and software trends over time.
-Second, it helps experienced teams to find alternatives to their solutions when looking to improve or conducting benchmarking.
-Third, it serves as a quick reference guide for new teams while preparing their robots.
-Finally, it helps the Technical Committee to keep the rulebook's specifications within the reach.
-
-The annex must contain the following information:
-
-\begin{itemize}[nosep]
-	\item Photo(s) of the robot
-	\item \textbf{OPL only:} Brief, compact description of the robot's hardware.
-	\begin{itemize}[nosep]
-		\item Robot's dimensions and weight.
-		\item Traction type (base, e.g.~differential pair, omnidirectional, synchro-drive).
-		\item Manipulators, count and number of DoF.
-		\item Torsos (pan-elevation unit supporting the head), count and number of DoF.
-		\item Heads (pan-tilt unit with a camera and optionally a microphone), count and number of DoF.
-		\item Number and type of LIDAR sensors.
-		\item Number and type of RGB-D sensors.
-		\item Number and type of cameras.
-		\item Number and type of microphones.
-		\item Number and type of other sensors.
-		\item Number and type of other actuators.
-	\end{itemize}
-	\item \textbf{DSPL \& SSPL:} Do \textbf{NOT} include hardware description.
-	\item Brief, compact description of the robot's software (including commercial products, freeware, Open Source, etc.).
-	\begin{itemize}[nosep]
-		\item Audio filtering
-		\item Automated speech recognition
-		\item Manipulation
-		\item Natural Language Processing
-		\item Navigation, localization, and mapping
-		\item Object recognition
-		\item People recognition
-		\item People tracking
-		\item Pose/Gesture recognition
-		\item Sound source localization
-	\end{itemize}
-	\item List of all external computing devices and the software running on them.
-	\item List of all cloud computing resources intended to be used.
-	\item Brief, compact description of all external devices (e.g.~smart home devices, transceivers, helper robots, etc.).
-\end{itemize}
-
-Examples are provided at the end of this document in
-\hyperlink{page.9}{page~9~(DSPL)},
-\hyperlink{page.10}{page~10~(OPL)}, and
-\hyperlink{page.11}{page~11~(SSPL)}.
-
-
-\section{Background}
-% We are Buy n Large. We have no competitors so no background is required.
-\lipsum[1-2]
-
-\section{BnL Trash Seeker Algorithm (Main research)}
-\lipsum[4-5]
-
-\section{BnL All-purpose Speech Recognizer (Main research)}
-\lipsum[9-10]
-
-\section{Other relevant contributions}
-\lipsum[12]
-\subsection{Dirt Detector Algorithm}
-\lipsum[13]
-\subsection{Green Plant Seeker Algorithm}
-\lipsum[14]
-\subsection{Trash Seeker Algorithm}
-\lipsum[15]
-
-\section{Experiments and results}
-\lipsum[23-24]
+\section{Contribution}
+SoftBank Corp. has continued to sponsor various robotic competitions\footnote{\url{https://wrs.nedo.go.jp/en/sponsor2020/}}\footnote{\url{https://tsukubachallenge.jp/2023/organization/sponsors}} and conferences\footnote{\url{https://ac.rsj-web.org/2023/}}\footnote{\url{https://roscon.ros.org/jp/2023/}} to advocate human-robot interaction research.
+Our sister company, SoftBank Robotics Corp. is a long-term global sponsor for RoboCup, which further exemplifies our commitment to advancing robotic technologies and education.
+Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research community and industry by offering a platform for research and study.
+While it is still in development, SOAR is designed with the future in mind, a testament to our initiative in paving the way for affordable and customizable robots, which we believe will make significant contributions to both academic research and practical applications.
 
 \section{Conclusions and future work}
-\lipsum[25]
+In this paper, we presented our currently developing robot SOAR which will participate in the RoboCup@Home Open Platform League.
+We detailed the hardware specification and introduced several software modules, such as object recognition and speech recognition, which we will continue to refine to tackle the tasks in RoboCup @Home for our future work.
+By enhancing SOAR’s capabilities in real-world interaction, we aim to contribute not just a flexible and affordable platform but also a robust platform for research and commercial use.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -260,9 +274,6 @@ Examples are provided at the end of this document in
 \bibliographystyle{unsrt}
 \bibliography{bibliography}
 
-% Comment or delete the following line
-{\vfill\begin{center}\huge\color{red}TDP must \textbf{NOT} exceed 8 pages\end{center}}
-
 \clearpage{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -272,11 +283,7 @@ Examples are provided at the end of this document in
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \robospecs{}
-\input{RobotDescriptionDSPL}
-\newpage
 \input{RobotDescriptionOPL}
-\newpage
-\input{RobotDescriptionSSPL}
 
 \nocite{*}
 

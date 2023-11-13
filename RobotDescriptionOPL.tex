@@ -1,69 +1,64 @@
 %CHKTEX-FILE 46
 
-\section*{Robot WALL-E Hardware Description [OPL Template]}%
+\section*{"SOAR" Hardware Description}%
 \label{sec:annex-OPL}
 % In this section briefly describe the software and hardware of the robot
 
 \setlength\intextsep{0pt}
 \begin{wrapfigure}[10]{r}{0.3\textwidth}
 	\centering
-	\includegraphics[width=0.4\textwidth]{images/wall-e.jpg}
-	\caption{Robot WALL-E}%
-	\label{fig:wall-e}
+	\includegraphics[width=0.4\textwidth]{images/soar.png}
+	%\caption{Robot "SOAR"}%
+	\label{fig:soar}
 \end{wrapfigure}
 
-Robot WALL-E has the patented \textit{\BnL{} Optimized Design} for garbage recollection. Specifications are as follows:
+Specifications are as follows:
 
 \begin{itemize}
-	\item Base: \BnL{} all-terrain base (differential pair), 2.5m/s max speed.
-	\item Torso: \BnL{} compressor with solar charger.
-	\item Left and right arms: Mounted on torso. \BnL{} 7DOF, anthropomorphic. Maximum load: 20kg.
-	\item Neck: \BnL{} telescopic neck with pan and tilt.
-	\item Head: 3DOF \BnL{} Expressive Eyes
-	\item Robot dimensions: height: 1.2m (max), width: 0.7m depth 0.8m
-	\item Robot weight: 50kg.
+	\item Base: differential drive, 0.83 m/s max speed.
+	\item Dimensions: (w) 550 mm (d) 650 mm (h) 1360 mm - 1820 mm
+	\item Weight: 92 kg
+	\item Arm: 8 DOF (1 DOF torso, 7 DOF manipulator)
+	\item Sensors:
+	      \begin{itemize}
+		      \item Mobile Base:
+		            \begin{itemize}
+			            \item Hinson LE-50621 LiDAR
+			            \item N100 9-axis IMU
+		            \end{itemize}
+		      \item Head:
+		            \begin{itemize}
+			            \item Azure Kinect RGB-D camera
+			            \item ECM-SP10 microphone
+			            \item JM800S-30-360X Zoom camera
+			            \item Seek thermal Copact Pro Fastframe
+		            \end{itemize}
+		      \item Arm:
+		            \begin{itemize}
+			            \item Realsense D435 RGB-D camera
+		            \end{itemize}
+	      \end{itemize}
+	\item PC: Intel NUC (NUC11PHKi7C)
+	\item Display: THANKO C-79D21B
 \end{itemize}
 
-\noindent\textit{Also our robot incorporates the following devices:}
-
-\begin{itemize}
-	\item \BnL{} Battery charge indicator
-	\item \BnL{} Auto-focus all-purpose cameras
-	\item \BnL{} 7DOF heavy duty fingers
-	\item \BnL{} Cockroach
-\end{itemize}
-
-\section*{Robot's Software Description}
+\section*{SOAR Software Description}
 % Please describe in this section the software you are using to control your robot. Consider the following example:
 
-\textit{For our robot we are using the following software:}
+"SOAR" use the following software components:
 
 \begin{itemize}
-	\item Platform: \BnL{} Operating System
-	\item Navigation: \BnL{} Navigator
-	\item Face recognition: None. Not designed for human interaction.
-	\item Speech recognition: \BnL{} All-purpose recognizer~\cite{bnl1}.
-	\item Speech generation: None. Not designed for human interaction.
-	\item Object recognition: \BnL{} Trash Seeker Algorithm (See previous sections).
-	\item Arms control and two-hand coordination: \BnL{} automatic controller~\cite{bnl2}.
-\end{itemize}
-
-\section*{External Devices}
-% Please describe in this section the external devices used by your robot. Consider the following example:
-
-\textit{WALL-E robot relies on the following external hardware:}
-
-\begin{itemize}
-	\item \BnL{} Garbage Compactor
-	\item \BnL{} EVA unit
-	\item \BnL{} Data Cluster
-	\item $3 \times$ \BnL{} Ultra-Power laptops.
-\end{itemize}
-
-\section*{Cloud Services}
-% Please describe in this section the Cloud Services and online software used by your robot. Consider the following example:
-
-\textit{WALL-E connects the following cloud services:}
-\begin{itemize}
-	\item Localization and mapping: \BnL{} Geolocalization system~\cite{bnl3}.
+	\item Platform: Ubuntu 20.04 ROS Noetic
+	\item Navigation: ROS Navigation Stack, EBand local planner
+	\item Arm Motion Planner: MoveIt ROS package
+	\item Object Recognition:
+	      \begin{itemize}
+		      \item YOLO v8
+		      \item \text{jsk\_pcl\_ros} ROS package
+	      \end{itemize}
+	\item Behavior Architecture: SMACH ROS package
+	\item Hotword: Efficent-Network
+	\item Speech Recognition: Google Dialogflow
+	\item Speech Generation: Google Text-To-Speech
+	\item Person Recognition: \text{spencer\_people\_tracking} ROS package
 \end{itemize}
