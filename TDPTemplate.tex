@@ -76,7 +76,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Chief Scientist Office 2023 Team Description Paper}
 
-\author{Takaaki Numi, \and Airi Yochi, \and Tatsuro Sakachi, \and Yuushi Kaida, \and Gakuto Okanoto, \and Joshua Superman}
+\author{Takaaki Numai, \and Airi Yokochi, \and Joshua Supratman, \and Tatsuro Sakaguchi, \and Yushi Kaida, \and Gakuto Okamoto}
 \institute{Affiliation name and address, \\
 \texttt{http://devoted-web-site.url}}
 
@@ -92,13 +92,13 @@
 
 \begin{abstract}
 	This paper presents SoftBank Corp. Japan team Chief Scientist Office’s new mobile manipulator “SOAR” for RoboCup 2024 @Home Open Platform League.
-	Differing from our previous participation with “Cuboid-X,” a robot assembled from commercial products, “SOAR” integrates both custom-developed and commercial components, a significant step toward developing a customizable and affordable robotic platform.
+	Differing from our previous participation with “Cuboid-X,” a robot assembled from commercial products, SOAR integrates both custom-developed and commercial components, a significant step toward developing a customizable and affordable robotic platform.
 	Our main achievement this year has been the successful integration of various hardware components and software development to tackle RoboCup challenges.
 
 	Our approach includes detailed hardware design and calibration, such as the arm and the sensor-rich head unit.
 	The software focuses on developing systems, such as object and speech recognition, tailored to the dynamic environment of RoboCup.
 
-	“SOAR” embodies our vision of a robotic system that combines modularity with cost-effectiveness.
+	SOAR embodies our vision of a robotic system that combines modularity with cost-effectiveness.
 	As we continue to refine SOAR’s capabilities further, we are optimistic about its potential to create an adaptable, cost-effective robotic platform for a variety of applications and fields.
 
 \end{abstract}
@@ -114,7 +114,7 @@ Since our last participation in 2022, we have made significant improvements, whi
 At SoftBank Corp. Chief Scientist Office, we aim to pioneer a customizable and affordable commercial robot platform akin to the modular ease found in computer assembly or the historical T-Ford model.
 Our mission is to democratize robotics, making it accessible and adaptable for research and commercial use.
 We believe in a future where integrating robotics into business is as straightforward as selecting components for a custom PC build.
-With “SOAR” as a stepping stone, we aim to develop a versatile platform that celebrates modularity in both hardware and software, allowing seamless integration and upgrades through a suite of interchangeable modules.
+With SOAR as a stepping stone, we aim to develop a versatile platform that celebrates modularity in both hardware and software, allowing seamless integration and upgrades through a suite of interchangeable modules.
 
 \subsection{Focus of research}
 Our research is motivated by the ambition to develop a customizable and affordable robot platform.
@@ -128,10 +128,10 @@ We recognize the constraints of current technologies and are committed to explor
 We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
 
 \section{Hardware}
-“SOAR” is a mobile manipulator comprising of four main components; the mobile base, the manipulator, the torso unit, and the head unit.
+SOAR is a mobile manipulator comprising of four main components; the mobile base, the manipulator, the torso unit, and the head unit.
 The mobile base and the manipulator are commercially available products while the torso and head units are developed in-house and designed by our team.
 The hardware is designed with a modular approach so that it not only facilitates customization but also simplifies maintenance and upgrades, allowing for the interchange of components as needed.
-Fig. \ref{fig:soar_overview} shows the the image of “SOAR.”
+Fig. \ref{fig:soar_overview} shows the the image of SOAR.
 
 \begin{figure}[tbp]
 	\centering
@@ -152,12 +152,12 @@ SOAR’s arm is composed of two units; the torso and the manipulator.
 The manipulator is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
 It has seven degrees of freedom with a payload of 3.5 kg.
 The torso unit, developed by our team, is a linear actuator with one degree of freedom.
-The torso unit elevates the manipulator, providing a clearance of 460 mm, which significantly enhances the arm’s reach and versatility.
+The torso unit elevates the manipulator, providing a clearance of 410 mm, which significantly enhances the arm’s reach and versatility.
 The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
 
 \subsection{Head Unit}
 The head unit has two main purposes: recognizing and understanding the environment and facilitating social interaction with people.
-The head unit is a hub of sensory and interactive technology, equipped with various devices including a RGB-D camera, a zoom camera, a thermal camera, LED lights, a head display, a microphone, and a speaker.
+The head unit is a hub of sensory and interactive technology, equipped with various devices including a RGB-D camera, a zoom camera, a thermal camera, a LED light, a head display, a microphone, and speakers.
 The device placement is shown in Fig. \ref{fig:head}
 Additionally, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
 
@@ -193,7 +193,7 @@ The overview of our software system, shown in Fig. \ref{fig:overview} is compris
 	\item the planning layer, a collection of software modules that take the state of the environment to evaluate and generate a sequence of appropriate robot behaviors, and
 	\item the control layer, the collection of software modules that translates the planned behavior and sends appropriate commands to the actuators for the robot to interact with the environment
 \end{enumerate}
-The primary framework for software module interaction is Robot Operating System (ROS), with each software module representing one or several ROS nodes.
+The primary framework for software module interaction is Robot Operating System (ROS)\footnote{\url{https://www.ros.org/}}, with each software module representing one or several ROS nodes.
 
 \begin{figure}[tbp]
 	\centering
@@ -204,20 +204,20 @@ The primary framework for software module interaction is Robot Operating System 
 
 \subsection{Object Recognition}
 Object detection and 3D localization are handled through the seamless integration of existing technologies.
-We employed ultranlytics’s YOLO v8\cite{yolov8_ultralytics} for its object recognition capabilities, producing bounding boxes with labels for each detected object in the robot’s field of view.
+We employed ultranlytics’s YOLOv8\cite{yolov8_ultralytics} for its object recognition capabilities, producing bounding boxes with labels for each detected object in the robot’s field of view.
 To understand the object’s spatial orientation and structure, we used the \text{jsk\_pcl\_ros}\footnote{\url{https://github.com/jsk-ros-pkg/jsk\_recognition}} package for its robust point cloud processing.
-We used the EuclideanClustering and the ClusterPointIndices functionalities within this package to segment and cluster point cloud data within the detected bounding boxes from YOLO v8 and generate 3D collision boxes along with its pose.
+We used the EuclideanClustering and the ClusterPointIndices functionalities within this package to segment and cluster point cloud data within the detected bounding boxes from YOLOv8 and generate 3D collision boxes along with its pose.
 The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 \begin{figure}[tbp]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline.png}
 	\caption{Object detection pipeline.
-		YOLO v8's bounding boxes and the point cloud data are given to \text{jsk\_pcl\_ros} package to generate 3D collision boxes which are passed to MoveIt planning scene.}
+		YOLOv8's bounding boxes and the point cloud data are given to \text{jsk\_pcl\_ros} package to generate 3D collision boxes which are passed to MoveIt planning scene.}
 	\label{fig:object_detection_pipeline}
 \end{figure}
 
 \subsection{Creating dataset}
-To train YOLO v8 for object recognition in the dynamic nature of RoboCup competitions, where new objects are often introduced on the day of the event, our team has developed a robust method for dataset preparation.
+To train YOLOv8 for object recognition in the dynamic nature of RoboCup competitions, where new objects are often introduced on the day of the event, our team has developed a robust method for dataset preparation.
 The process involves capturing images of objects from multiple angles and capturing background images on the RoboCup field.
 We then crop the object images using a GUI tool and overlay them onto the background images, creating composite images.
 We then generate a COCO-style dataset with the composite images.
@@ -247,7 +247,7 @@ These improvements are aimed at increasing the robustness and accuracy of our ob
 
 We use EfficientWord-Net\cite{efficientnet} to detect hotword to initiate the conversion.
 Once engaged, we employed Google Dialogflow for conversation, which can interpret spoken phrases and generate relevant responses based on our predefined conversational settings.
-For vocal output, we use gTTS\footnote{\url{https://github.com/pndurette/gTTS}} to convert text to speech.
+For vocal output, we use Google Text-To-Speech.
 
 In addition to the current pipeline, we are also exploring the integration of ChatGPT\cite{openai2023gpt4} as a potential replacement for Google Dialogflow to enrich SOAR’s conversational capabilities.
 To facilitate this transition, we use Silero VAD\cite{SileroVAD} to segment the voice signals and Whisper\cite{radford2022robust} to convert speech to text.

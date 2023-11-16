@@ -1,6 +1,6 @@
 %CHKTEX-FILE 46
 
-\section*{"SOAR" Hardware Description}%
+\section*{SOAR Hardware Description}%
 \label{sec:annex-OPL}
 % In this section briefly describe the software and hardware of the robot
 
@@ -8,7 +8,7 @@
 \begin{wrapfigure}[10]{r}{0.3\textwidth}
 	\centering
 	\includegraphics[width=0.4\textwidth]{images/soar.png}
-	%\caption{Robot "SOAR"}%
+	%\caption{Robot SOAR}%
 	\label{fig:soar}
 \end{wrapfigure}
 
@@ -16,7 +16,7 @@ Specifications are as follows:
 
 \begin{itemize}
 	\item Base: differential drive, 0.83 m/s max speed.
-	\item Dimensions: (w) 550 mm (d) 650 mm (h) 1360 mm - 1820 mm
+	\item Dimensions: (w) 550 mm (d) 650 mm (h) 1360 mm - 1770 mm
 	\item Weight: 92 kg
 	\item Arm: 8 DOF (1 DOF torso, 7 DOF manipulator)
 	\item Sensors:
@@ -45,7 +45,7 @@ Specifications are as follows:
 \section*{SOAR Software Description}
 % Please describe in this section the software you are using to control your robot. Consider the following example:
 
-"SOAR" use the following software components:
+SOAR use the following software components:
 
 \begin{itemize}
 	\item Platform: Ubuntu 20.04 ROS Noetic
@@ -53,11 +53,11 @@ Specifications are as follows:
 	\item Arm Motion Planner: MoveIt ROS package
 	\item Object Recognition:
 	      \begin{itemize}
-		      \item YOLO v8
+		      \item YOLOv8
 		      \item \text{jsk\_pcl\_ros} ROS package
 	      \end{itemize}
 	\item Behavior Architecture: SMACH ROS package
-	\item Hotword: Efficent-Network
+	\item Hotword: EfficientWord-Net
 	\item Speech Recognition: Google Dialogflow
 	\item Speech Generation: Google Text-To-Speech
 	\item Person Recognition: \text{spencer\_people\_tracking} ROS package
