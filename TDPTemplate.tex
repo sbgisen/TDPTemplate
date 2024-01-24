@@ -129,45 +129,74 @@ We believe that these research areas are crucial to bridging the gap between the
 
 \section{Hardware}
 SOAR is a mobile manipulator comprising of four main components; the mobile base, the manipulator, the torso unit, and the head unit.
+Fig. \ref{fig:components} shows the four main components of SOAR.
 The mobile base and the manipulator are commercially available products while the torso and head units are developed in-house and designed by our team.
 The hardware is designed with a modular approach so that it not only facilitates customization but also simplifies maintenance and upgrades, allowing for the interchange of components as needed.
-Fig. \ref{fig:soar_overview} shows the the image of SOAR.
 
 \begin{figure}[tbp]
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/soar_overview.png}
-	\caption{Image of SOAR.}
-	\label{fig:soar_overview}
+	\begin{subfigure}[t]{0.24\linewidth}
+		\includegraphics[width=\linewidth]{images/component_base.png}
+		\caption{Mobile base.}
+	\end{subfigure}
+	% \hfill
+	\begin{subfigure}[t]{0.24\linewidth}
+		\includegraphics[width=\linewidth]{images/component_head.png}
+		\caption{Head unit.}
+	\end{subfigure}
+	% \hfill
+	\begin{subfigure}[t]{0.24\linewidth}
+		\includegraphics[width=\linewidth]{images/component_arm.png}
+		\caption{Manipulator.}
+	\end{subfigure}
+	% \hfill
+	\begin{subfigure}[t]{0.24\linewidth}
+		\includegraphics[width=\linewidth]{images/component_torso.png}
+		\caption{Torso unit.}
+	\end{subfigure}
+	\caption{Four main components of SOAR.}
+	\label{fig:components}
 \end{figure}
 
-\subsection{Mobile Base}
+\subsection{Mobile Base Unit}
 SOAR’s mobile base is a 2-wheel differential drive mobile base developed by F-Design\footnote{\url{https://f-ds.jp/}}.
 It is supplemented with two casters and each driving wheel and caster are equipped with suspensions for smoother movement and stability.
 The base has a maximum speed of 3.0 km/h.
-We made additional modifications to the unit, equipping it with a LiDAR and an IMU sensor for navigation.
-We also integrated a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
+We made additional modifications to the unit, equipping it with a battery management system and a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
 
-\subsection{Torso and Manipulator}
+\subsection{Torso and Manipulator Unit}
 SOAR’s arm is composed of two units; the torso and the manipulator.
 The manipulator is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
 It has seven degrees of freedom with a payload of 3.5 kg.
 The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
+The manipulator is mounted on the torso unit, with its controller box stored in the back of the torso unit.
 
 The torso unit, developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
 The unit elevates the head and manipulator units, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
+The torso unit is also equipped with an IMU, LiDAR, and PC.
 
 \subsection{Head Unit}
 The head unit has two main purposes: recognizing and understanding the environment and facilitating social interaction with people.
 The head unit is a hub of sensory and interactive technology, equipped with various devices including a RGB-D camera, a zoom camera, a thermal camera, a LED light, a head display, a microphone, and speakers.
-The device placement is shown in Fig. \ref{fig:head}
+% The device placement is shown in Fig. \ref{fig:head}
 Additionally, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
+Homing sensors have been integrated on both the pan and tilt for calibration and homing to enhance the head unit's functionality, eliminating the need for absolute encoders in motors, which reduces spatial requirements, eliminates the need for mechanical adjustments to achieve a homing position, and increases the flexibility in motor selection.
 
-\begin{figure}[tbp]
-	\centering
-	\includegraphics[width=1.0\linewidth]{images/head_unit.png}
-	\caption{Device placement on the head unit.}
-	\label{fig:head}
-\end{figure}
+% \begin{figure}[tbp]
+% 	\centering
+% 	\includegraphics[width=1.0\linewidth]{images/head_unit.png}
+% 	\caption{Device placement on the head unit.}
+% 	\label{fig:head}
+% \end{figure}
+
+\subsection{Integration of Hardware Components}
+SOAR's hardware components are integrated using a modular approach, allowing for easy maintenance and upgrades.
+The head unit, outfitted with multiple sensors, incorporates a USB hub for efficient cable management, with a separate USB cable dedicated to the high-bandwith depth camera.
+The head unit extends three specific cables: a USB cable from the sensor hub, a separate USB for the depth camera, and a power supply cable.
+Similarly, the mobile base unit manages its devices, the motor driver, and the battery management system with a USB hub.
+The mobile base unit extends two cables: the USB cable from the device hub and the power supply cable.
+Circuits are centralized on the torso unit, streamlining the connection of the mobile base's devices and the sensor-equipped head unit with minimal cabling.
+This modular approach not only facilitates easy modification and maintenance of components but also ensures minimal cable protrusion, significantly enhancing SOAR's design for easy adjustment and maintenance while keeping the system organized and efficient.
 
 \subsection{Calibration}
 SOAR’s design incorporates interchangeable modules like the manipulation unit.
@@ -219,18 +248,17 @@ The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 
 \begin{figure}[tbp]
 	\centering
-	\begin{subfigure}[t]{0.42\linewidth}
+	\begin{subfigure}[t]{0.32\linewidth}
 		\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline1.png}
 		\caption{Detecting cup noodles with YOLOv8.}
 		\label{fig:object_detection_pipeline1}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.42\linewidth}
+	\begin{subfigure}[t]{0.32\linewidth}
 		\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline2.png}
-		\caption{Point cloud data of the environment and MoveIt planning scene with the predefined shelf collision.}
+		\caption{Point cloud data and MoveIt planning scene.}
 		\label{fig:object_detection_pipeline2}
 	\end{subfigure}
-	\vfill
-	\begin{subfigure}[t]{0.42\linewidth}
+	\begin{subfigure}[t]{0.32\linewidth}
 		\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline3.png}
 		\caption{3D collision boxes generated by \text{jsk\_pcl\_ros} package.}
 		\label{fig:object_detection_pipeline3}
