@@ -121,86 +121,79 @@ Our research is motivated by the ambition to develop a customizable and affordab
 We recognize the constraints of current technologies and are committed to exploring their limits and potential. Key areas of our interest include but are not limited to:
 \begin{itemize}
 	\item Modularity and Configurability: Investigate how to design a system that allows for easy integration and customization of hardware modules.
-	\item Technological Feasibility: Assessing the capabilities of existing technologies to meet our affordability and performance criteria.
 	\item Device Integration: Tackling the hardware challenges related to the seamless integration of diverse devices and components
-	\item Software Optimization: Addressing the limitation of current software modules, such as MoveIt, by enhancing computation speed and completing critical functions.
 \end{itemize}
 We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
 
-\section{Hardware}
-SOAR is a mobile manipulator comprising of four main components; the mobile base, the manipulator, the torso unit, and the head unit.
-Fig. \ref{fig:components} shows the four main components of SOAR.
-The mobile base and the manipulator are commercially available products while the torso and head units are developed in-house and designed by our team.
-The hardware is designed with a modular approach so that it not only facilitates customization but also simplifies maintenance and upgrades, allowing for the interchange of components as needed.
+\section{Hardware Modules}
+SOAR is a mobile manipulator comprising four main components: the mobile base, the manipulator, the torso unit, and the head unit as shown in Fig. \ref{fig:components}.
+The mobile base and the manipulator are commercially available products, while the torso and head units are custom-developed by our team.
+The head and the torso are separate units designed for specific functionalities; we designed the head to accommodate various interchangeable sensors and the torso to enhance the manipulator's reach and versatility.
+All components are designed with minimal cable protrusion, with circuits centralized on the torso unit, streamlining the connection across components with minimal cabling.
+This modular approach not only facilitates customization but also organizes and simplifies maintenance and upgrades, allowing for the interchange of components as needed.
 
 \begin{figure}[tbp]
 	\centering
-	\begin{subfigure}[t]{0.24\linewidth}
-		\includegraphics[width=\linewidth]{images/component_base.png}
-		\caption{Mobile base.}
+	\begin{subfigure}[b]{0.4\linewidth}
+		\includegraphics[width=\linewidth]{images/soar.png}
+		\caption{SOAR.}
+		\label{fig:component_soar}
 	\end{subfigure}
-	% \hfill
-	\begin{subfigure}[t]{0.24\linewidth}
-		\includegraphics[width=\linewidth]{images/component_head.png}
-		\caption{Head unit.}
-	\end{subfigure}
-	% \hfill
-	\begin{subfigure}[t]{0.24\linewidth}
-		\includegraphics[width=\linewidth]{images/component_arm.png}
-		\caption{Manipulator.}
-	\end{subfigure}
-	% \hfill
-	\begin{subfigure}[t]{0.24\linewidth}
-		\includegraphics[width=\linewidth]{images/component_torso.png}
-		\caption{Torso unit.}
-	\end{subfigure}
-	\caption{Four main components of SOAR.}
+	\begin{minipage}[b]{0.25\linewidth}
+		\centering
+		\begin{subfigure}[b]{\linewidth}
+			\includegraphics[width=\linewidth]{images/component_base.png}
+			\caption{Mobile base.}
+			\label{fig:component_base}
+		\end{subfigure}
+		\begin{subfigure}[b]{\linewidth}
+			\includegraphics[width=\linewidth]{images/component_manipulator.png}
+			\caption{Manipulator.}
+			\label{fig:component_arm}
+		\end{subfigure}
+	\end{minipage}
+	\hspace{0.01\linewidth}
+	\begin{minipage}[b]{0.25\linewidth}
+		\centering
+		\begin{subfigure}[b]{\linewidth}
+			\includegraphics[width=\linewidth]{images/component_head.png}
+			\caption{Head unit.}
+			\label{fig:component_head}
+		\end{subfigure}
+		\begin{subfigure}[b]{\linewidth}
+			\includegraphics[width=\linewidth]{images/component_torso.png}
+			\caption{Torso unit.}
+			\label{fig:component_torso}
+		\end{subfigure}
+	\end{minipage}
+	\caption{SOAR and its four components.}
 	\label{fig:components}
 \end{figure}
 
 \subsection{Mobile Base Unit}
-SOAR’s mobile base is a 2-wheel differential drive mobile base developed by F-Design\footnote{\url{https://f-ds.jp/}}.
-It is supplemented with two casters and each driving wheel and caster are equipped with suspensions for smoother movement and stability.
-The base has a maximum speed of 3.0 km/h.
+SOAR’s mobile base (Fig. \ref{fig:component_base}) is a 2-wheel differential drive mobile base developed by F-Design\footnote{\url{https://f-ds.jp/}}.
+It is supplemented with two casters, and each driving wheel and caster are equipped with suspensions for smoother movement and stability.
 We made additional modifications to the unit, equipping it with a battery management system and a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
+We connect the motor drivers and the battery management system to a USB hub, resulting in only two cables extending out: the USB cable from the device hub and the power supply cable.
 
-\subsection{Torso and Manipulator Unit}
-SOAR’s arm is composed of two units; the torso and the manipulator.
-The manipulator is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
-It has seven degrees of freedom with a payload of 3.5 kg.
+\subsection{Manipulator}
+The manipulator (Fig. \ref{fig:component_arm}) is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
 The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
-The manipulator is mounted on the torso unit, with its controller box stored in the back of the torso unit.
-
-The torso unit, developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
-The unit elevates the head and manipulator units, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
-The torso unit is also equipped with an IMU, LiDAR, and PC.
 
 \subsection{Head Unit}
-The head unit has two main purposes: recognizing and understanding the environment and facilitating social interaction with people.
-The head unit is a hub of sensory and interactive technology, equipped with various devices including a RGB-D camera, a zoom camera, a thermal camera, a LED light, a head display, a microphone, and speakers.
-% The device placement is shown in Fig. \ref{fig:head}
-Additionally, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
+The head unit (Fig. \ref{fig:component_head}) is a hub of sensory and interactive technology to understand the environment and facilitate social interaction with people.
+We equipped various interchangeable devices in the head unit, with a USB hub for efficient cable management and a separate USB cable for the high-bandwidth depth camera.
+The head unit extends three specific cables: a USB cable from the sensor hub, a separate USB for the depth camera, and a power supply cable.
+In addition, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
 Homing sensors have been integrated on both the pan and tilt for calibration and homing to enhance the head unit's functionality, eliminating the need for absolute encoders in motors, which reduces spatial requirements, eliminates the need for mechanical adjustments to achieve a homing position, and increases the flexibility in motor selection.
 
-% \begin{figure}[tbp]
-% 	\centering
-% 	\includegraphics[width=1.0\linewidth]{images/head_unit.png}
-% 	\caption{Device placement on the head unit.}
-% 	\label{fig:head}
-% \end{figure}
+\subsection{Torso Unit}
+The torso unit (Fig. \ref{fig:component_torso}), developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
+The unit elevates the head unit and the manipulator, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
+In addition, the unit also stores the main PC and controller box as it serves as the central hub for SOAR's hardware components.
 
-\subsection{Integration of Hardware Components}
-SOAR's hardware components are integrated using a modular approach, allowing for easy maintenance and upgrades.
-The head unit, outfitted with multiple sensors, incorporates a USB hub for efficient cable management, with a separate USB cable dedicated to the high-bandwith depth camera.
-The head unit extends three specific cables: a USB cable from the sensor hub, a separate USB for the depth camera, and a power supply cable.
-Similarly, the mobile base unit manages its devices, the motor driver, and the battery management system with a USB hub.
-The mobile base unit extends two cables: the USB cable from the device hub and the power supply cable.
-Circuits are centralized on the torso unit, streamlining the connection of the mobile base's devices and the sensor-equipped head unit with minimal cabling.
-This modular approach not only facilitates easy modification and maintenance of components but also ensures minimal cable protrusion, significantly enhancing SOAR's design for easy adjustment and maintenance while keeping the system organized and efficient.
-
-\subsection{Calibration}
-SOAR’s design incorporates interchangeable modules like the manipulation unit.
-This, however, brings forth unique calibration challenges.
+\section{Alignment Between Modules}
+SOAR’s interchangeable modules brings forth unique calibration challenges.
 These challenges arise due to alignment issues, accuracy demands, adaptability needs, and the importance of consistent performance across different modules.
 Calibration, therefore, becomes essential to ensure that each module functions correctly within the system.
 

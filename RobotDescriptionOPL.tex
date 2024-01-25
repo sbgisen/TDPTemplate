@@ -9,38 +9,43 @@
 	\centering
 	\includegraphics[width=0.4\textwidth]{images/soar.png}
 	%\caption{Robot SOAR}%
-	\label{fig:soar}
+	% \label{fig:soar}
 \end{wrapfigure}
 
 Specifications are as follows:
 
 \begin{itemize}
-	\item Base: differential drive, 0.83 m/s max speed.
 	\item Dimensions: (w) 550 mm (d) 650 mm (h) 1360 mm - 1770 mm
 	\item Weight: 92 kg
-	\item Arm: 8 DOF (1 DOF torso, 7 DOF manipulator)
-	\item Sensors:
+	\item Mobile Base: differential drive, 0.83 m/s max speed
+	\item Manipulator: 7 DOF, 3.5 kg payload
 	      \begin{itemize}
-		      \item Torso:
+		      \item Sensors:
+		            \begin{itemize}
+			            \item RealSense D435 RGB-D camera
+		            \end{itemize}
+	      \end{itemize}
+	\item Head unit: 2 DOF pan-tilt
+	      \begin{itemize}
+		      \item Sensors:
+		            \begin{itemize}
+			            \item Azure Kinect RGB-D camera
+			            \item NEEWER NW-410 condenser microphone
+			            \item JM800S-30-360X zoom camera
+			            \item Seek Thermal CompactPRO Fast Frame
+		            \end{itemize}
+		      \item Display: THANKO C-79D21B
+		      \item Speaker: YAMAHA VXS1MLB
+	      \end{itemize}
+	\item Torso unit: 1 DOF linear joint
+	      \begin{itemize}
+		      \item Sensors:
 		            \begin{itemize}
 			            \item Hinson LE-50621 LiDAR
 			            \item N100 9-axis IMU
 		            \end{itemize}
-		      \item Head:
-		            \begin{itemize}
-			            \item Azure Kinect RGB-D camera
-			            \item ECM-SP10 microphone
-			            \item JM800S-30-360X zoom camera
-			            \item Seek Thermal CompactPRO Fast Frame
-		            \end{itemize}
-		      \item Arm:
-		            \begin{itemize}
-			            \item Realsense D435 RGB-D camera
-		            \end{itemize}
+		      \item PC: Intel NUC (NUC11PHKi7C)
 	      \end{itemize}
-	\item PC: Intel NUC (NUC11PHKi7C)
-	\item Display: THANKO C-79D21B
-	\item Speaker: YAMAHA VXS1MLB
 \end{itemize}
 
 \section*{SOAR Software Description}
