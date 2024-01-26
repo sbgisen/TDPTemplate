@@ -126,7 +126,7 @@ We recognize the constraints of current technologies and are committed to explor
 We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
 
 \section{Hardware Modules}
-SOAR is a mobile manipulator comprising four main components: the mobile base, the manipulator, the torso unit, and the head unit as shown in Fig. \ref{fig:components}.
+SOAR is a mobile manipulator comprising four main components: the mobile base, the torso unit, the manipulator, and the head unit as shown in Fig. \ref{fig:components}.
 The mobile base and the manipulator are commercially available products, while the torso and head units are custom-developed by our team.
 The head and the torso are separate units designed for specific functionalities; we designed the head to accommodate various interchangeable sensors and the torso to enhance the manipulator's reach and versatility.
 All components are designed with minimal cable protrusion, with circuits centralized on the torso unit, streamlining the connection across components with minimal cabling.
@@ -147,23 +147,23 @@ This modular approach not only facilitates customization but also organizes and 
 			\label{fig:component_base}
 		\end{subfigure}
 		\begin{subfigure}[b]{\linewidth}
-			\includegraphics[width=\linewidth]{images/component_manipulator.png}
-			\caption{Manipulator.}
-			\label{fig:component_arm}
+			\includegraphics[width=\linewidth]{images/component_torso.png}
+			\caption{Torso unit.}
+			\label{fig:component_torso}
 		\end{subfigure}
 	\end{minipage}
 	\hspace{0.01\linewidth}
 	\begin{minipage}[b]{0.25\linewidth}
 		\centering
 		\begin{subfigure}[b]{\linewidth}
+			\includegraphics[width=\linewidth]{images/component_manipulator.png}
+			\caption{Manipulator.}
+			\label{fig:component_arm}
+		\end{subfigure}
+		\begin{subfigure}[b]{\linewidth}
 			\includegraphics[width=\linewidth]{images/component_head.png}
 			\caption{Head unit.}
 			\label{fig:component_head}
-		\end{subfigure}
-		\begin{subfigure}[b]{\linewidth}
-			\includegraphics[width=\linewidth]{images/component_torso.png}
-			\caption{Torso unit.}
-			\label{fig:component_torso}
 		\end{subfigure}
 	\end{minipage}
 	\caption{SOAR and its four components.}
@@ -176,6 +176,11 @@ It is supplemented with two casters, and each driving wheel and caster are equip
 We made additional modifications to the unit, equipping it with a battery management system and a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
 We connect the motor drivers and the battery management system to a USB hub, resulting in only two cables extending out: the USB cable from the device hub and the power supply cable.
 
+\subsection{Torso Unit}
+The torso unit (Fig. \ref{fig:component_torso}), developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
+The unit elevates the head unit and the manipulator, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
+In addition, the unit also stores the main PC and controller box as it serves as the central hub for SOAR's hardware components.
+
 \subsection{Manipulator}
 The manipulator (Fig. \ref{fig:component_arm}) is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
 The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
@@ -187,19 +192,14 @@ The head unit extends three specific cables: a USB cable from the sensor hub, a 
 In addition, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
 Homing sensors have been integrated on both the pan and tilt for calibration and homing to enhance the head unit's functionality, eliminating the need for absolute encoders in motors, which reduces spatial requirements, eliminates the need for mechanical adjustments to achieve a homing position, and increases the flexibility in motor selection.
 
-\subsection{Torso Unit}
-The torso unit (Fig. \ref{fig:component_torso}), developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
-The unit elevates the head unit and the manipulator, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
-In addition, the unit also stores the main PC and controller box as it serves as the central hub for SOAR's hardware components.
-
 \section{Alignment Between Modules}
-SOAR’s interchangeable modules brings forth unique calibration challenges.
-These challenges arise due to alignment issues, accuracy demands, adaptability needs, and the importance of consistent performance across different modules.
-Calibration, therefore, becomes essential to ensure that each module functions correctly within the system.
+SOAR's modular design brings forth unique challenges in ensuring precise alignment between its components, mainly due to the frequent installation and removal of components during maintenance and upgrades, leading to performance variability.
+The interchangeability of modules requires a robust system to maintain consistent performances across different configurations.
 
-To address this, we employ the \text{robot\_calibration}\cite{ferguson2015robust} ROS package.
-This package allows us to fine-tune the arm, aligning the measured joint values with their actual physical counterparts, ensuring accuracy.
-While we achieved good calibration results for the manipulator unit, as shown in Fig. \ref{fig:calibration}, the task is more challenging for the head unit and is still undergoing refinement to reach the desired level of accuracy.
+To address these challenges, we used the \text{robot\_calibration}\cite{ferguson2015robust} ROS package.
+This package automatically fine-tuned the alignments of SOAR's components, ensuring each module aligns correctly with the system to maintain the robot's performance, significantly reducing the need to adjust the components to align with the system manually.
+Figure \ref{fig:calibration}, shows an example with the manipulator and the head unit, where the measured joints align with their actual physical counterpart.
+While we achieve good calibration results with the manipulator, calibrating other components, like the mobile base, presents more challenges and is an ongoing process to achieve the desired level of alignment and performance.
 
 \begin{figure}[tbp]
 	\centering
