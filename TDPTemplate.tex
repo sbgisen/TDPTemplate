@@ -95,7 +95,7 @@
 	Differing from our previous participation with “Cuboid-X,” a robot assembled from commercial products, SOAR integrates both custom-developed and commercial components, a significant step toward developing a customizable and affordable robotic platform.
 	Our main achievement this year has been the successful integration of various hardware components and software development to tackle RoboCup challenges.
 
-	Our approach includes detailed hardware design and calibration, such as the arm and the sensor-rich head unit.
+	Our approach includes detailed hardware design and calibration, such as the arm and the sensor-rich head.
 	The software focuses on developing systems, such as object and speech recognition, tailored to the dynamic environment of RoboCup.
 
 	SOAR embodies our vision of a robotic system that combines modularity with cost-effectiveness.
@@ -126,10 +126,10 @@ We recognize the constraints of current technologies and are committed to explor
 We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
 
 \section{Hardware Modules}
-SOAR is a mobile manipulator comprising four main components: the mobile base, the torso unit, the manipulator, and the head unit as shown in Fig. \ref{fig:components}.
-The mobile base and the manipulator are commercially available products, while the torso and head units are custom-developed by our team.
-The head and the torso are separate units designed for specific functionalities; we designed the head to accommodate various interchangeable sensors and the torso to enhance the manipulator's reach and versatility.
-All components are designed with minimal cable protrusion, with circuits centralized on the torso unit, streamlining the connection across components with minimal cabling.
+SOAR is a mobile manipulator comprising four main components: the mobile base, the torso, the manipulator, and the head as shown in Fig. \ref{fig:components}.
+The mobile base and the manipulator are commercially available products, while the torso and the head are custom-developed by our team.
+The head and the torso are separate components designed for specific functionalities; we designed the head to accommodate various interchangeable sensors and the torso to enhance the manipulator's reach and versatility.
+All components are designed with minimal cable protrusion, with circuits centralized on the torso, thus streamlining the connection across components with minimal cabling.
 This modular approach not only facilitates customization but also organizes and simplifies maintenance and upgrades, allowing for the interchange of components as needed.
 
 \begin{figure}[tbp]
@@ -148,7 +148,7 @@ This modular approach not only facilitates customization but also organizes and 
 		\end{subfigure}
 		\begin{subfigure}[b]{\linewidth}
 			\includegraphics[width=\linewidth]{images/component_torso.png}
-			\caption{Torso Unit.}
+			\caption{Torso.}
 			\label{fig:component_torso}
 		\end{subfigure}
 	\end{minipage}
@@ -162,7 +162,7 @@ This modular approach not only facilitates customization but also organizes and 
 		\end{subfigure}
 		\begin{subfigure}[b]{\linewidth}
 			\includegraphics[width=\linewidth]{images/component_head.png}
-			\caption{Head Unit.}
+			\caption{Head.}
 			\label{fig:component_head}
 		\end{subfigure}
 	\end{minipage}
@@ -173,24 +173,24 @@ This modular approach not only facilitates customization but also organizes and 
 \subsection{Mobile Base}
 SOAR’s mobile base (Fig. \ref{fig:component_base}) is a 2-wheel differential drive mobile base developed by F-Design\footnote{\url{https://f-ds.jp/}}.
 It is supplemented with two casters, and each driving wheel and caster are equipped with suspensions for smoother movement and stability.
-We made additional modifications to the unit, equipping it with a battery management system and a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
+We made additional modifications to the component, equipping it with a battery management system and a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
 We connect the motor drivers and the battery management system to a USB hub, resulting in only two cables extending out: the USB cable from the device hub and the power supply cable.
 
-\subsection{Torso Unit}
-The torso unit (Fig. \ref{fig:component_torso}), developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
-The unit elevates the head unit and the manipulator, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
-In addition, the unit also stores the main PC and controller box as it serves as the central hub for SOAR's hardware components.
+\subsection{Torso}
+The torso (Fig. \ref{fig:component_torso}), developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
+The component elevates the head and the manipulator, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
+In addition, the component also stores the main PC and controller box as it serves as the central hub for SOAR's hardware components.
 
 \subsection{Manipulator}
 The manipulator (Fig. \ref{fig:component_arm}) is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
 The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
 
-\subsection{Head Unit}
-The head unit (Fig. \ref{fig:component_head}), designed as a sensory and interactive hub, supports a range of sensors and user interface devices for environmental understanding and social interaction.
-Equipped with a USB hub for efficient cable management and a separate USB for the high-bandwith depth camera, it allows for easy swapping of sensors and devices, ensuring that the unit can be customized for specific requirements.
-The head unit extends three specific cables: a USB cable from the sensor hub, a separate USB for the depth camera, and a power supply cable.
+\subsection{Head}
+The head (Fig. \ref{fig:component_head}), designed as a sensory and interactive hub, supports a range of sensors and user interface devices for environmental understanding and social interaction.
+Equipped with a USB hub for efficient cable management and a separate USB for the high-bandwith depth camera, it allows for easy swapping of sensors and devices, ensuring that the component can be customized for specific requirements.
+The head extends three specific cables: a USB cable from the sensor hub, a separate USB for the depth camera, and a power supply cable.
 In addition, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
-Homing sensors have been integrated on both the pan and tilt for calibration and homing to enhance the head unit's functionality, eliminating the need for absolute encoders in motors, which reduces spatial requirements, eliminates the need for mechanical adjustments to achieve a homing position, and increases the flexibility in motor selection.
+Homing sensors have been integrated on both the pan and tilt for calibration and homing to enhance the head's functionality, eliminating the need for absolute encoders in motors, which reduces spatial requirements, eliminates the need for mechanical adjustments to achieve a homing position, and increases the flexibility in motor selection.
 
 \section{Alignment Between Modules}
 SOAR's modular design brings forth unique challenges in ensuring precise alignment between its components, mainly due to the frequent installation and removal of components during maintenance and upgrades, leading to performance variability.
@@ -198,7 +198,7 @@ The interchangeability of modules requires a robust system to maintain consisten
 
 To address these challenges, we used the \text{robot\_calibration}\cite{ferguson2015robust} ROS package.
 This package automatically fine-tuned the alignments of SOAR's components, ensuring each module aligns correctly with the system to maintain the robot's performance, significantly reducing the need to adjust the components to align with the system manually.
-Figure \ref{fig:calibration}, shows an example with the manipulator and the head unit, where the measured joints align with their actual physical counterpart.
+Figure \ref{fig:calibration}, shows an example with the manipulator and the head, where the measured joints align with their actual physical counterpart.
 While we achieve good calibration results with the manipulator, calibrating other components, like the mobile base, presents more challenges and is an ongoing process to achieve the desired level of alignment and performance.
 
 \begin{figure}[tbp]
@@ -308,7 +308,7 @@ To facilitate this transition, we use Silero VAD\cite{SileroVAD} to segment the 
 \section{Contribution}
 SoftBank Corp. has continued to sponsor various robotic competitions\footnote{\url{https://wrs.nedo.go.jp/en/sponsor2020/}}\footnote{\url{https://tsukubachallenge.jp/2023/organization/sponsors}} and conferences\footnote{\url{https://ac.rsj-web.org/2023/}}\footnote{\url{https://roscon.ros.org/jp/2023/}} to advocate human-robot interaction research.
 Our sister company, SoftBank Robotics Corp. is a long-term global sponsor for RoboCup, which further exemplifies our commitment to advancing robotic technologies and education.
-Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research community and industry by offering a platform for research and study.
+Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research commcomponenty and industry by offering a platform for research and study.
 While it is still in development, SOAR is designed with the future in mind, a testament to our initiative in paving the way for affordable and customizable robots, which we believe will make significant contributions to both academic research and practical applications.
 
 \section{Conclusions and future work}
