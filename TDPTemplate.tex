@@ -72,12 +72,12 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Chief Scientist Office 2024 Team Description Paper}
+\title{Chief Scientist Office 2026 Team Description Paper}
 
-\author{Takaaki Numai \and Airi Yokochi \and Joshua Supratman \and Tatsuro Sakaguchi \and Yushi Kaida \and Gakuto Okamoto\thanks{The order of authors is based on age.}}
+\author{Takaaki Numai \and Airi Yokochi \and Joshua Supratman \and Tatsuro Sakaguchi \and Yushi Kaida \and Gakuto Okamoto \and Koshi Shibata\thanks{The order of authors is based on age.}}
 \institute{SoftBank Corp. Chief Scientist Office \\
 	\texttt{https://www.robocup.ros-sier.com/, https://github.com/sbgisen}}
-\authorrunning{Takaaki N., Airi Y., Joshua S., Tatsuro S., Yushi K., Gakuto O.}
+\authorrunning{Takaaki N., Airi Y., Joshua S., Tatsuro S., Yushi K., Gakuto O., Koshi S.}
 
 \begin{document}
 \maketitle
@@ -88,15 +88,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-	This paper presents SoftBank Corp. Japan team Chief Scientist Office’s new mobile manipulator “SOAR” for RoboCup 2024 @Home Open Platform League.
-	Differing from our previous participation with “Cuboid-X,” a robot assembled from commercial products, SOAR integrates both custom-developed and commercial components, a significant step toward developing a customizable and affordable robotic platform.
-	Our main achievement this year has been the successful integration of various hardware components and software development to tackle RoboCup challenges.
-
-	Our approach includes detailed hardware design and calibration, such as the arm and the sensor-rich head.
-	The software focuses on developing systems, such as object and speech recognition, tailored to the dynamic environment of RoboCup.
-
-	SOAR embodies our vision of a robotic system that combines modularity with cost-effectiveness.
-	As we continue to refine SOAR’s capabilities further, we are optimistic about its potential to create an adaptable, cost-effective robotic platform for a variety of applications and fields.
+	This paper presents SoftBank Corp. Japan team Chief Scientist Office’s mobile manipulator “SOAR” for RoboCup 2026 @Home Open Platform League.
 
 \end{abstract}
 
@@ -105,8 +97,8 @@
 
 \section{Introduction}
 This paper details the RoboCup @Home Open Platform League team Chief Scientist Office from SoftBank Corp. Japan.
-This is our second appearance at RoboCup @Home Open Platform League.
-Since our last participation in 2022, we have made significant improvements, which include the introduction of our new mobile manipulator “SOAR.”
+This is our third appearance at RoboCup @Home Open Platform League having obtained 4th place in RoboCup 2024 @Home Open Platform League previously.
+Since our last participation in 2024, we have made significant improvements to our hardware and software system for mobile manipulator "SOAR".
 
 At SoftBank Corp. Chief Scientist Office, we aim to pioneer a customizable and affordable commercial robot platform akin to the modular ease found in computer assembly or the historical T-Ford model.
 Our mission is to democratize robotics, making it accessible and adaptable for research and commercial use.
@@ -115,7 +107,8 @@ With SOAR as a stepping stone, we aim to develop a versatile platform that celeb
 
 \subsection{Focus of research}
 Our research is motivated by the ambition to develop a customizable and affordable robot platform.
-We recognize the constraints of current technologies and are committed to exploring their limits and potential. Key areas of our interest include but are not limited to:
+We recognize the constraints of current technologies and are committed to exploring their limits and potential.
+Key areas of our interest include but are not limited to:
 \begin{itemize}
 	\item Modularity and Configurability: Investigate how to design a system that allows for easy integration and customization of hardware modules.
 	\item Device Integration: Tackling the hardware challenges related to the seamless integration of diverse devices and components
@@ -124,7 +117,7 @@ We believe that these research areas are crucial to bridging the gap between the
 
 \section{Hardware Modules}
 SOAR is a mobile manipulator comprising four main components: the mobile base, the torso, the manipulator, and the head as shown in Fig. \ref{fig:components}.
-The mobile base and the manipulator are commercially available products, while the torso and the head are custom-developed by our team.
+The manipulator are commercially available products, while the mobile base, the torso, and the head are custom-developed by our team.
 The head and the torso are separate components designed for specific functionalities; we designed the head to accommodate various interchangeable sensors and the torso to enhance the manipulator's reach and versatility.
 All components are designed with minimal cable protrusion, with circuits centralized on the torso, thus streamlining the connection across components with minimal cabling.
 This modular approach not only facilitates customization but also organizes and simplifies maintenance and upgrades, allowing for the interchange of components as needed.
@@ -168,50 +161,33 @@ This modular approach not only facilitates customization but also organizes and 
 \end{figure}
 
 \subsection{Mobile Base}
-SOAR’s mobile base (Fig. \ref{fig:component_base}) is a 2-wheel differential drive mobile base developed by F-Design\footnote{\url{https://f-ds.jp/}}.
-It is supplemented with two casters, and each driving wheel and caster are equipped with suspensions for smoother movement and stability.
-We made additional modifications to the component, equipping it with a battery management system and a docking charging connector, enabling SOAR to recharge its battery autonomously once depleted, enhancing its operational autonomy and efficiency.
-We connect the motor drivers and the battery management system to a USB hub, resulting in only two cables extending out: the USB cable from the device hub and the power supply cable.
+SOAR's mobile base (Fig. \ref{fig:component_base}) is a compact 2-wheel differential drive platform, designed for indoor navigation.
+Both the driving wheels and casters are equipped with suspensions to ensure smooth movement and stability.
+The mobile base integrates a 2D liDAR and a 9-axis IMU for localization and autonomous navigation.
+It also includes battery management system and a docking charging connector, enabling the SOAR to recharge itself without human intervention thus extending its operational time.
+The motor drivers and the battery management system are connected to a USB hub, resulting in only two cables extending out: the USB cable from the device hub and the power supply cable.
+
+Previously, SOAR used a commercially available mobile base with custom modifications.
+For RoboCup @Home 2026, we swapped with a newly developed, in-house base that has smaller footprint and equipped with a built-in LED button for direct user interface.
 
 \subsection{Torso}
-The torso (Fig. \ref{fig:component_torso}), developed by our team, is a linear actuator with one degree of freedom equipped with a constant-force spring to provide gravity compensation.
-The component elevates the head and the manipulator, providing a clearance of 410 mm, significantly enhancing the latter's reach and versatility.
-In addition, the component also stores the main PC and controller box as it serves as the central hub for SOAR's hardware components.
+The torso (Fig. \ref{fig:component_torso}), developed by our team, is a one degree of freedom linear actuator designed to vertically adjust the position of the head and manipulator.
+It incorporates a constant-force spring to provide gravity compensation, reducing motor load and improving energy efficiency during vertical movements.
+This mechanism provides an addition 350 mm of vertical clearance, significantly enhancing the manipulator's reach and versatility.
+The torso also serves as the central hub for SOAR's hardware components, housing the main PC and controller box.
 
 \subsection{Manipulator}
 The manipulator (Fig. \ref{fig:component_arm}) is xArm 7\footnote{\url{https://www.ufactory.cc/xarm-collaborative-robot/}}, a commercially available product developed by uFactory.
 The end-effector is equipped with a two-finger gripper and a RGB-D hand camera.
 
 \subsection{Head}
-The head (Fig. \ref{fig:component_head}), designed as a sensory and interactive hub, supports a range of sensors and user interface devices for environmental understanding and social interaction.
+The head (Fig. \ref{fig:component_head}), designed as SOAR's primary sensory and interactive module, serves as a centralized platform for perception and user engagement.
+The module supports various range of sensors and user interface devices for environmental understanding and social interaction.
+
 Equipped with a USB hub for efficient cable management and a separate USB for the high-bandwith depth camera, it allows for easy swapping of sensors and devices, ensuring that the component can be customized for specific requirements.
 The head extends three specific cables: a USB cable from the sensor hub, a separate USB for the depth camera, and a power supply cable.
-In addition, the head has 2 degrees of freedom for pan and tilt movements, enhancing its SOAR’s ability to survey diverse environments and engage in social interaction more effectively.
-Homing sensors have been integrated on both the pan and tilt for calibration and homing to enhance the head's functionality, eliminating the need for absolute encoders in motors, which reduces spatial requirements, eliminates the need for mechanical adjustments to achieve a homing position, and increases the flexibility in motor selection.
 
-\section{Alignment Between Modules}
-SOAR's modular design brings forth unique challenges in ensuring precise alignment between its components, mainly due to the frequent installation and removal of components during maintenance and upgrades, leading to performance variability.
-The interchangeability of modules requires a robust system to maintain consistent performances across different configurations.
-
-To address these challenges, we used the \text{robot\_calibration}\cite{ferguson2015robust} ROS package.
-This package automatically fine-tuned the alignments of SOAR's components, ensuring each module aligns correctly with the system to maintain the robot's performance, significantly reducing the need to adjust the components to align with the system manually.
-Figure \ref{fig:calibration}, shows an example with the manipulator and the head, where the measured joints align with their actual physical counterpart.
-While we achieve good calibration results with the manipulator, calibrating other components, like the mobile base, presents more challenges and is an ongoing process to achieve the desired level of alignment and performance.
-
-\begin{figure}[tbp]
-	\centering
-	\begin{subfigure}[t]{0.49\linewidth}
-		\includegraphics[width=\linewidth]{images/calibration_before.png}
-		\caption{Before calibration. Red circles show the discrepancies between the measured joint and the actual joint.}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.49\linewidth}
-		\includegraphics[width=\linewidth]{images/calibration_after.png}
-		\caption{After calibration. Blue circles show the alignment between the measured joint and the actual joint, indicating improved accuracy and precision in the measurement.}
-	\end{subfigure}
-	\caption{Calibration results.}
-	\label{fig:calibration}
-\end{figure}
+In addition, the head has 2 degrees of freedom for pan and tilt movements, allowing SOAR to dynamically adjust its field of view for environment scanning, object tracking, and social interaction.
 
 \section{Software}
 The overview of our software system, shown in Fig. \ref{fig:overview} is comprised of three main layers:
@@ -220,7 +196,7 @@ The overview of our software system, shown in Fig. \ref{fig:overview} is compris
 	\item the planning layer, a collection of software modules that take the state of the environment to evaluate and generate a sequence of appropriate robot behaviors, and
 	\item the control layer, the collection of software modules that translates the planned behavior and sends appropriate commands to the actuators for the robot to interact with the environment
 \end{enumerate}
-The primary framework for software module interaction is Robot Operating System (ROS)\footnote{\url{https://www.ros.org/}}, with each software module representing one or several ROS nodes.
+Previously, we used ROS1 Noetic as our primary software framework, but this year we migrated our software system to ROS2 Jazzy as ROS1 has reached its end of life.
 
 \begin{figure}[tbp]
 	\centering
@@ -230,10 +206,10 @@ The primary framework for software module interaction is Robot Operating System 
 \end{figure}
 
 \subsection{Object Recognition}
-Object detection and 3D localization are handled through the seamless integration of existing technologies.
-We employed ultranlytics’s YOLOv8\cite{yolov8_ultralytics} for its object recognition capabilities, producing bounding boxes with labels for each detected object in the robot’s field of view.
-To understand the object’s spatial orientation and structure, we used the \text{jsk\_pcl\_ros}\footnote{\url{https://github.com/jsk-ros-pkg/jsk\_recognition}} package for its robust point cloud processing.
-We used the EuclideanClustering and the ClusterPointIndicesDecomposer functionalities within this package to segment and cluster point cloud data within the detected bounding boxes from YOLOv8 and generate 3D collision boxes along with its pose.
+Object recognition is a crucial aspect of SOAR’s perception system, enabling it to identify and interact with various objects in its environment.
+To achieve robust and reliable perception, we combine 2D image-based object detection with 3D point cloud processing.
+We employed ultranlytics’s YOLOv8\cite{yolov8_ultralytics} for real-time object detection, producing labeled bounding boxes for all recognized objects within the robot’s field of view.
+These bounding boxes are then used to segment and cluster point cloud data within the detected regions to compute 3D collision boxes and object poses, which are essential for downstream manipulation tasks.
 The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 
 \begin{figure}[tbp]
@@ -250,66 +226,69 @@ The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 	\end{subfigure}
 	\begin{subfigure}[t]{0.32\linewidth}
 		\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline3.png}
-		\caption{3D collision boxes generated by \text{jsk\_pcl\_ros} package.}
+		\caption{Generated 3D collision boxes.}
 		\label{fig:object_detection_pipeline3}
 	\end{subfigure}
 	\caption{Object detection pipeline. YOLOv8's bounding box (Fig. \ref{fig:object_detection_pipeline1}) and the point cloud data (Fig. \ref{fig:object_detection_pipeline2}) are given to \text{jsk\_pcl\_ros} package to generate 3D collision boxes (Fig. \ref{fig:object_detection_pipeline3}), which are passed to MoveIt planning scene.}
 	\label{fig:object_detection_pipeline}
 \end{figure}
 
-\subsection{Creating dataset}
-To train YOLOv8 for object recognition in the dynamic nature of RoboCup competitions, where new objects are often introduced on the day of the event, our team has developed a robust method for dataset preparation.
-The process involves capturing images of objects from multiple angles and capturing background images on the RoboCup field.
-We then crop the object images using a GUI tool and overlay them onto the background images, creating composite images.
-We then generate a COCO-style dataset with the composite images.
-An example is shown in Fig. \ref{fig:dataset}.
-This method significantly simplifies the annotation process, allowing us to create datasets with new objects within a day, thus enabling rapid adaptation and expansion of our object recognition system.
+\subsection{Speech Recognition And Interaction}
 
-We are continuously working to enhance our model’s capability to recognize challenging objects, such as transparent objects or surfaces with reflective properties like silver.
-We are also refining our data collection techniques to consider factors such as varying camera angles and light intensities, which are critical not only for realistic and effective annotation but also for creating 3D simulation models.
-These improvements are aimed at increasing the robustness and accuracy of our object recognition system under varied and unpredictable competition conditions.
+Our previous system relied on EfficientWord-Net for hotword detection, Google Dialogflow for conversational understanding, and Google Text-To-Speech for vocal responses.
+Our current system uses ChatGPT \cite{openai2023gpt4}, known for its advanced natural language processing capabilities, for conversational understanding.
+The speech pipeline begins with Silero VAD \cite{SileroVAD} to segment incoming audio and Whisper \cite{radford2022robust} to transcribe speech to text.
+The transcribed text is then processed by ChatGPT \cite{openai2023gpt4} to generate a response, which is converted back to audio using its integrated text-to-speech capabilities.
+
+In addition, we are exploring the use of the ChatGPT Realtime API, which supports low-latency, streaming interactions, and dynamic interaction where responses can be interrupted, updated, or redirected mid-generation based on new user input.
+To support this real-time conversational loop, we used Google's WebRTC AE3 echo canceller \cite{webRTC} to suppress audio feedback from the robot’s own speakers, preventing them from being captured by the microphone.
+This enables continuous, overlapping dialogue where the user can speak while the robot is talking, resulting in more natural and fluid human–robot interaction.
+
+\subsection{Behavior}
+SOAR’s behavior system is built on the SMACH ROS package, which provides a hierarchical state machine framework forming the core of the robot’s decision-making architecture.
+Each SMACH state is designed as a modular, reusable component, allowing behaviors to be composed, extended, and reorganized for different tasks.
+In standard operation, state transitions follow predefined logic, but for the GPSR (General Purpose Service Robot) RoboCup @Home task, we employ ChatGPT as a high-level planner.
+Given a natural-language command, ChatGPT generates a sequence of states to execute, which are then executed in order without relying on the traditional state transition conditions.
+This approach enables flexible task planning and adaptation to open-ended commands.
+For more controlled execution, certain states themselves encapsulate internal state machines, allowing for structured behaviors within a larger ChatGPT-defined plan.
+As a result, some states function as primitive actions, while others manage complex sub-behaviors, with ChatGPT determining their order of execution while the internal logic remains under our control.
+
+The behavior pipeline along with its speech interaction for the GPSR task is illustrated in Fig. \ref{fig:gpsr}.
 
 \begin{figure}[tbp]
 	\centering
-	\begin{subfigure}[t]{0.42\linewidth}
-		\includegraphics[width=1.0\linewidth]{images/dataset1.png}
-		\caption{Use turn-table to capture images of objects from multiple angles.}
-	\end{subfigure}
-	\begin{subfigure}[t]{0.42\linewidth}
-		\includegraphics[width=1.0\linewidth]{images/dataset2.png}
-		\caption{Crop object images using GUI.}
-	\end{subfigure}
-	\vfill
-	\begin{subfigure}[t]{0.42\linewidth}
-		\includegraphics[width=1.0\linewidth]{images/dataset3.png}
-		\caption{Generate composite images.}
-	\end{subfigure}
-	\begin{subfigure}[t]{0.42\linewidth}
-		\includegraphics[width=1.0\linewidth]{images/dataset4.png}
-		\caption{Object recognition with the model trained on composite images.}
-	\end{subfigure}
-	\caption{Dataset creation process.}
-	\label{fig:dataset}
+	% \includegraphics[width=0.7\linewidth]{images/software_overview.png}
+	\caption{Behavior for GPSR task.}
+	\label{fig:gpsr}
 \end{figure}
 
-\subsection{Speech Recognition And Interaction}
+\subsection{Scene fitting}
+In household environments, the scene around the robot is rarely static.
+While certain structures such as walls or large furniture remain fixed, many surfaces, such as tables and shelves where manipulation tasks occur, often shift slightly due to human activities.
+These subtle changes can introduce significant risks during manipulation, as the mismatch between the robot's internal scene model and the actual environment can lead to collisions.
+To address this, we developed a scene fitting process that aligns its internal scene model with the current environment before performing manipulation tasks.
 
-We use EfficientWord-Net\cite{efficientnet} to detect hotword to initiate the conversion.
-Once engaged, we employed Google Dialogflow for conversation, which can interpret spoken phrases and generate relevant responses based on our predefined conversational settings.
-For vocal output, we use Google Text-To-Speech.
+During the mapping phase, SOAR records the point cloud and the pose of key furniture surfaces involved in manipulation tasks, such as tables and shelves.
+At runtime, the robot captures the point cloud of the same surface and applies a multi-stage ICP alignment to register the current observation with the previously stored model.
+The resulting transformation is used to update the robot internal scene model pose, ensuring that the motion planning accounts for slight environmental changes.
 
-In addition to the current pipeline, we are also exploring the integration of ChatGPT\cite{openai2023gpt4} as a potential replacement for Google Dialogflow to enrich SOAR’s conversational capabilities.
-To facilitate this transition, we use Silero VAD\cite{SileroVAD} to segment the voice signals and Whisper\cite{radford2022robust} to convert speech to text.
+Fig. \ref{fig:scene_fitting} illustrates an example of scene fitting for a table.
 
+\begin{figure}[tbp]
+	\centering
+	% \includegraphics[width=0.7\linewidth]{images/software_overview.png}
+	\caption{Example of scene fitting a table.}
+	\label{fig:scene_fitting}
+\end{figure}
 
 \section{Contribution}
 SoftBank Corp. has continued to sponsor various robotic competitions\footnote{\url{https://wrs.nedo.go.jp/en/sponsor2020/}}\footnote{\url{https://tsukubachallenge.jp/2023/organization/sponsors}} and conferences\footnote{\url{https://ac.rsj-web.org/2023/}}\footnote{\url{https://roscon.ros.org/jp/2023/}} to advocate human-robot interaction research.
 Our sister company, SoftBank Robotics Corp. is a long-term global sponsor for RoboCup, which further exemplifies our commitment to advancing robotic technologies and education.
-Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research commcomponenty and industry by offering a platform for research and study.
+Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research company and industry by offering a platform for research and study.
 While it is still in development, SOAR is designed with the future in mind, a testament to our initiative in paving the way for affordable and customizable robots, which we believe will make significant contributions to both academic research and practical applications.
 
 \section{Conclusions and future work}
-In this paper, we presented our currently developing robot SOAR which will participate in the RoboCup@Home Open Platform League.
+In this paper, we presented our currently developing robot SOAR which will participate in the RoboCup@Home League.
 We detailed the hardware specification and introduced several software modules, such as object recognition and speech recognition, which we will continue to refine to tackle the tasks in RoboCup @Home for our future work.
 By enhancing SOAR’s capabilities in real-world interaction, we aim to contribute not just a flexible and affordable platform but also a robust platform for research and commercial use.
 

@@ -15,33 +15,37 @@
 Specifications are as follows:
 
 \begin{itemize}
-	\item Dimensions: (w) 550 mm (d) 650 mm (h) 1360 mm - 1770 mm
-	\item Weight: 92 kg
-	\item Max Speed: 0.83 m/s
+	\item Dimensions: (w) 500 mm (d) 530 mm (h) 1440 mm - 1790 mm
+	\item Weight: 113 kg
+	\item Max Speed: 1.2 m/s
+	\item Battery: 25.6V 40Ah LiFePO4, 3 hours operation time
 	\item Mobile Base: differential drive
-	\item Torso unit: 1 DOF linear joint
 	      \begin{itemize}
 		      \item Sensors:
 		            \begin{itemize}
 			            \item Hinson LE-50621 LiDAR
-			            \item N100 9-axis IMU
+						\item LDROBOT LD06
+			            \item Wheeltec N100 9-axis IMU
 		            \end{itemize}
+		  \end{itemize}
+	\item Torso unit: 1 DOF linear joint
+	      \begin{itemize}
 		      \item PC: Intel NUC (NUC11PHKi7C)
 	      \end{itemize}
 	\item Manipulator: 7 DOF, 3.5 kg payload
 	      \begin{itemize}
 		      \item Sensors:
 		            \begin{itemize}
-			            \item RealSense D435 RGB-D camera
+			            \item ORBBEC Femto Bolt
 		            \end{itemize}
 	      \end{itemize}
 	\item Head unit: 2 DOF pan-tilt
 	      \begin{itemize}
 		      \item Sensors:
 		            \begin{itemize}
-			            \item Azure Kinect RGB-D camera
+			            \item Azure Kinect DK RGB-D camera
 			            \item NEEWER NW-410 condenser microphone
-			            \item JM800S-30-360X zoom camera
+			            \item GENIUSPY JM800S-30-360X zoom camera
 			            \item Seek Thermal CompactPRO Fast Frame
 		            \end{itemize}
 		      \item Display: THANKO C-79D21B
@@ -52,20 +56,15 @@ Specifications are as follows:
 \section*{SOAR Software Description}
 % Please describe in this section the software you are using to control your robot. Consider the following example:
 
-SOAR use the following software components:
+SOAR use the following open-source software components:
 
 \begin{itemize}
-	\item Platform: Ubuntu 20.04 ROS Noetic
-	\item Navigation: ROS Navigation Stack, EBand local planner
-	\item Arm Motion Planner: MoveIt ROS package
-	\item Object Recognition:
-	      \begin{itemize}
-		      \item YOLOv8
-		      \item \text{jsk\_pcl\_ros} ROS package
-	      \end{itemize}
-	\item Behavior Architecture: SMACH ROS package
-	\item Hotword: EfficientWord-Net
-	\item Speech Recognition: Google Dialogflow
-	\item Speech Generation: Google Text-To-Speech
-	\item Person Recognition: \text{spencer\_people\_tracking} ROS package
+	\item Platform: Ubuntu 24.04 ROS2 Jazzy
+	\item Navigation: Nav2, MPPI controller
+	\item Manipulation: MoveIt2, MoveIt Task Constructor
+	\item Object Recognition: YOLOv8
+	\item Behavior Architecture: SMACH
+	\item Speech Recognition: Silero VAD, Whisper
+	\item Speech Generation: GPT-4o-mini-tts
+	\item LLM: GPT-4o
 \end{itemize}
