@@ -4,7 +4,7 @@ TEXFILE = $(PREFIX).tex
 AUXFILE = $(PREFIX).aux
 PDFFILE = $(PREFIX).pdf
 LATEXMK = latexmk -g -pdfxe
-RUBBER  = rubber --pdf --force --module xelatex
+RUBBER  = rubber --pdf --module xelatex
 SILENT  = @
 
 TEMP	= *.aux *.bbl *.blg *.log *.out
