@@ -236,9 +236,10 @@ The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 \subsection{Speech Recognition And Interaction}
 
 Our previous system relied on EfficientWord-Net for hotword detection, Google Dialogflow for conversational understanding, and Google Text-To-Speech for vocal responses.
-Our current system uses ChatGPT \cite{openai2023gpt4}, known for its advanced natural language processing capabilities, for conversational understanding.
-The speech pipeline begins with Silero VAD \cite{SileroVAD} to segment incoming audio and Whisper \cite{radford2022robust} to transcribe speech to text.
-The transcribed text is then processed by ChatGPT \cite{openai2023gpt4} to generate a response, which is converted back to audio using its integrated text-to-speech capabilities.
+Our current system uses mainly uses ChatGPT \cite{openai2023gpt4}, known for its advanced natural language processing capabilities, to handle speech transcription, conversational understanding, and speech generation.
+The speech pipeline begins with Silero VAD \cite{SileroVAD} to segment incoming audio, followed by GPT-4o mini Transcribe \cite{transcribe} for speech-to-text conversion.
+The transcribed text is then processed by GPT-4.1 mini \cite{openai2023gpt4} dedicated to conversational understanding, which to generate an appropriate response.
+The responses are converted back into audio using GPT-4o mini TTS.
 
 In addition, we are exploring the use of the ChatGPT Realtime API, which supports low-latency, streaming interactions, and dynamic interaction where responses can be interrupted, updated, or redirected mid-generation based on new user input.
 To support this real-time conversational loop, we used Google's WebRTC AE3 echo canceller \cite{webRTC} to suppress audio feedback from the robot’s own speakers, preventing them from being captured by the microphone.
@@ -246,18 +247,23 @@ This enables continuous, overlapping dialogue where the user can speak while the
 
 \subsection{Behavior}
 SOAR’s behavior system is built on the SMACH ROS package, which provides a hierarchical state machine framework forming the core of the robot’s decision-making architecture.
-Each SMACH state is designed as a modular, reusable component, allowing behaviors to be composed, extended, and reorganized for different tasks.
-In standard operation, state transitions follow predefined logic, but for the GPSR (General Purpose Service Robot) RoboCup @Home task, we employ ChatGPT as a high-level planner.
+Each SMACH state is designed as a modular, reusable component, allowing behaviors to be composed, extended, and reorganized for various tasks.
+
+In standard task execution, state transitions follow predefined logic, but for the GPSR (General Purpose Service Robot) task, we use ChatGPT as a task planner to dynamically generate behaviors based on natural-language commands.
 Given a natural-language command, ChatGPT generates a sequence of states to execute, which are then executed in order without relying on the traditional state transition conditions.
 This approach enables flexible task planning and adaptation to open-ended commands.
-For more controlled execution, certain states themselves encapsulate internal state machines, allowing for structured behaviors within a larger ChatGPT-defined plan.
-As a result, some states function as primitive actions, while others manage complex sub-behaviors, with ChatGPT determining their order of execution while the internal logic remains under our control.
+For more controlled execution, certain states themselves encapsulate internal state machines, allowing for structured sub-behaviors within a larger LLM-defined plan.
+As a result, some states function as primitive actions, while others manage complex behaviors, with the task planning model determining their order of execution while the robot's internal logic governs how each behavior is executed.
+
+A key feature of our current architecture is the use of two separate GPT-4.1 mini models with distinct prompting strategies to clearly separate conversational interaction from task planning.
+All user input is first processed by the conversational model, which interprets intent, maintains dialogue context, and determines whether the user's request requires the robot to act.
+If an action is required, the conversational model passes the request to the task-planning model, which generates a sequence of SMACH states to execute the task.
 
 The behavior pipeline along with its speech interaction for the GPSR task is illustrated in Fig. \ref{fig:gpsr}.
 
 \begin{figure}[tbp]
 	\centering
-	% \includegraphics[width=0.7\linewidth]{images/software_overview.png}
+	\includegraphics[width=0.7\linewidth]{images/gpsr.png}
 	\caption{Behavior for GPSR task.}
 	\label{fig:gpsr}
 \end{figure}
@@ -276,7 +282,16 @@ Fig. \ref{fig:scene_fitting} illustrates an example of scene fitting for a table
 
 \begin{figure}[tbp]
 	\centering
-	% \includegraphics[width=0.7\linewidth]{images/software_overview.png}
+	\begin{subfigure}[t]{0.4\linewidth}
+		\includegraphics[width=1.0\linewidth]{images/setup_scene_fit.png}
+		\caption{During setup, we create table's collision box and crop point cloud as reference model.}
+		\label{fig:object_detection_pipeline2}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.55\linewidth}
+		\includegraphics[width=1.0\linewidth]{images/runtime_scene_fit.png}
+		\caption{When table pose shifts, the robot performs alignment between the reference model (top) and the current environment (bottom) and updates the table's collision box pose.}
+		\label{fig:object_detection_pipeline3}
+	\end{subfigure}
 	\caption{Example of scene fitting a table.}
 	\label{fig:scene_fitting}
 \end{figure}
