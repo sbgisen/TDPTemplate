@@ -96,14 +96,46 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
-This paper details the RoboCup @Home Open Platform League team Chief Scientist Office from SoftBank Corp. Japan.
-This is our third appearance at RoboCup @Home Open Platform League having obtained 4th place in RoboCup 2024 @Home Open Platform League previously.
-Since our last participation in 2024, we have made significant improvements to our hardware and software system for mobile manipulator "SOAR".
+% This paper presents the continued development of SOAR, a mobile manipulator robot designed by SoftBank Corp. Chief Scientist Office for participation in RoboCup @Home 2026.
+% Building upon previous iterations, we enhanced system integration, migrating to ROS2 and introducing a robust perception-to-action pipeline that includes but is not limited to 3D scene fitting, object recognition, speech interaction, and behavior planning using large language models.
+% Our research emphasizes how these components coordinate within a unified architecture to enable adaptive planning, robust control, and flexible interaction in dynamic environments.
+% We also report our increasing contributions to the robotics community through open-source source releases and conference sponsorships, and discuss the broader application of SOAR as a customizable and affordable robot platform for research and commercial use.
 
-At SoftBank Corp. Chief Scientist Office, we aim to pioneer a customizable and affordable commercial robot platform akin to the modular ease found in computer assembly or the historical T-Ford model.
-Our mission is to democratize robotics, making it accessible and adaptable for research and commercial use.
-We believe in a future where integrating robotics into business is as straightforward as selecting components for a custom PC build.
-With SOAR as a stepping stone, we aim to develop a versatile platform that celebrates modularity in both hardware and software, allowing seamless integration and upgrades through a suite of interchangeable modules.
+% This paper details the RoboCup @Home Open Platform League team Chief Scientist Office from SoftBank Corp. Japan.
+% This is our third appearance at RoboCup @Home Open Platform League having obtained 4th place in RoboCup 2024 @Home Open Platform League previously.
+% Since our last participation in 2024, we have made significant improvements to our hardware and software system for mobile manipulator "SOAR".
+
+% At SoftBank Corp. Chief Scientist Office, we aim to pioneer a customizable and affordable commercial robot platform akin to the modular ease found in computer assembly or the historical T-Ford model.
+% Our mission is to democratize robotics, making it accessible and adaptable for research and commercial use.
+% We believe in a future where integrating robotics into business is as straightforward as selecting components for a custom PC build.
+% With SOAR as a stepping stone, we aim to develop a versatile platform that celebrates modularity in both hardware and software, allowing seamless integration and upgrades through a suite of interchangeable modules.
+
+% \subsection{Focus of research}
+% Our research is motivated by the ambition to develop a customizable and affordable robot platform.
+% We recognize the constraints of current technologies and are committed to exploring their limits and potential.
+% Key areas of our interest include but are not limited to:
+% \begin{itemize}
+% 	\item Modularity and Configurability: Investigate how to design a system that allows for easy integration and customization of hardware modules.
+% 	\item Device Integration: Tackling the hardware challenges related to the seamless integration of diverse devices and components
+% \end{itemize}
+% We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
+
+This paper presents the continued development of SOAR, a mobile manipulator robot designed by SoftBank Corp. Chief Scientist Office for participation in RoboCup @Home 2026.
+Building upon previous iterations, we enhanced system integration, migrating to ROS2 and introducing a robust perception-to-action pipeline that includes but is not limited to 3D scene fitting, object recognition, speech interaction, and behavior planning using large language models.
+Our research emphasizes how these components coordinate within a unified architecture to enable adaptive planning, robust control, and flexible interaction in dynamic environments.
+We also report our increasing contributions to the robotics community through open-source source releases and conference sponsorships, and discuss the broader application of SOAR as a customizable and affordable robot platform for research and commercial use.
+
+SOAR occupies a distinct and deliberate role as an internal research platform.
+Its objective is not productizzation, but the accumulation of technical knowledge, development experimence, and system integration capability that can serve as the foundation for the next generation of SoftBank robots.
+
+The mobile manipulator robot is a long-term investment in robotic intelligence.
+It functions as a tesbed for advance perception, planning, and interaction capabilities - particularly in integrating AI-driven resasoning into physical systems.
+This focus enables engineers to experiment bottom-up, verify cross disciplinary concepts, and consolidate pratical know-how in robotic autonomoy without the operational constraints of product development.
+SOAR thus represents SoftBank's commitment to internal competence building, emphasizing sustainable research value over short-term deliverables.
+
+As a research platform, SOAR continues to evolve both techinically and strategically.
+Hardware remains stable, but its software stack has undergone a major transformation: migrating ROS2 for long-term maintainability, integration of scene-fitting perceptipon pipeline, deployment of new object recognition, and introducing LLM-based behavior planner.
+These elements collectively position SOAR as an experimental platform for studying how modern AI systems can enhance robotic adaptability and cognitive control in real-world environments such as RoboCup@Home.
 
 \subsection{Focus of research}
 Our research is motivated by the ambition to develop a customizable and affordable robot platform.
@@ -114,6 +146,8 @@ Key areas of our interest include but are not limited to:
 	\item Device Integration: Tackling the hardware challenges related to the seamless integration of diverse devices and components
 \end{itemize}
 We believe that these research areas are crucial to bridging the gap between the aspirational and the practical, laying the groundwork for a robot that can adapt to various needs.
+
+
 
 \section{Hardware Modules}
 SOAR is a mobile manipulator comprising four main components: the mobile base, the torso, the manipulator, and the head as shown in Fig. \ref{fig:components}.
@@ -190,20 +224,7 @@ The head extends three specific cables: a USB cable from the sensor hub, a separ
 In addition, the head has 2 degrees of freedom for pan and tilt movements, allowing SOAR to dynamically adjust its field of view for environment scanning, object tracking, and social interaction.
 
 \section{Software}
-The overview of our software system, shown in Fig. \ref{fig:overview} is comprised of three main layers:
-\begin{enumerate}
-	\item The perception layer, a collection of software modules that take the robot’s sensor data and process them to create a symbolic representation of the environment,
-	\item the planning layer, a collection of software modules that take the state of the environment to evaluate and generate a sequence of appropriate robot behaviors, and
-	\item the control layer, the collection of software modules that translates the planned behavior and sends appropriate commands to the actuators for the robot to interact with the environment
-\end{enumerate}
-Previously, we used ROS1 Noetic as our primary software framework, but this year we migrated our software system to ROS2 Jazzy as ROS1 has reached its end of life.
 
-\begin{figure}[tbp]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/software_overview.png}
-	\caption{SOAR software overview.}
-	\label{fig:overview}
-\end{figure}
 
 \subsection{Object Recognition}
 Object recognition is a crucial aspect of SOAR’s perception system, enabling it to identify and interact with various objects in its environment.
@@ -297,10 +318,18 @@ Fig. \ref{fig:scene_fitting} illustrates an example of scene fitting for a table
 \end{figure}
 
 \section{Contribution}
-SoftBank Corp. has continued to sponsor various robotic competitions\footnote{\url{https://wrs.nedo.go.jp/en/sponsor2020/}}\footnote{\url{https://tsukubachallenge.jp/2023/organization/sponsors}} and conferences\footnote{\url{https://ac.rsj-web.org/2023/}}\footnote{\url{https://roscon.ros.org/jp/2023/}} to advocate human-robot interaction research.
-Our sister company, SoftBank Robotics Corp. is a long-term global sponsor for RoboCup, which further exemplifies our commitment to advancing robotic technologies and education.
-Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research company and industry by offering a platform for research and study.
-While it is still in development, SOAR is designed with the future in mind, a testament to our initiative in paving the way for affordable and customizable robots, which we believe will make significant contributions to both academic research and practical applications.
+Our recent contributions extend beyond the development of SOAR itself, focusing on fostering community growth and supporting research in robotics.
+We have focused on increasing our impact on the robotics community through open source software contribution and supporting research community initiatives.
+The following are some of our recent contributions:
+\begin{itemize}
+	\item Open-source software modules. We developed and released an open-source hardware interface for VESC motor controller, enabling integration with ROS2 control framework.
+	\item ROS contributions. Members of our team actively contributed to official ROS repositories, including bug fixes, and feature enhancements.
+	\item Robotics conference and competition sponsorships. We recognize the advancing robotics requires more than individual project development and thus we contributed to the growth of the research and educational ecosystem.
+\end{itemize}
+% SoftBank Corp. has continued to sponsor various robotic competitions\footnote{\url{https://wrs.nedo.go.jp/en/sponsor2020/}}\footnote{\url{https://tsukubachallenge.jp/2023/organization/sponsors}} and conferences\footnote{\url{https://ac.rsj-web.org/2023/}}\footnote{\url{https://roscon.ros.org/jp/2023/}} to advocate human-robot interaction research.
+% Our sister company, SoftBank Robotics Corp. is a long-term global sponsor for RoboCup, which further exemplifies our commitment to advancing robotic technologies and education.
+% Despite our low direct scientific contribution, SOAR, our current prototype, represents our venture into supporting the research company and industry by offering a platform for research and study.
+% While it is still in development, SOAR is designed with the future in mind, a testament to our initiative in paving the way for affordable and customizable robots, which we believe will make significant contributions to both academic research and practical applications.
 
 \section{Conclusions and future work}
 In this paper, we presented our currently developing robot SOAR which will participate in the RoboCup@Home League.
