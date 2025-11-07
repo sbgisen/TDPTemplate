@@ -89,9 +89,9 @@
 
 \begin{abstract}
 	This paper presents SoftBank Corp. Japan team Chief Scientist Office’s mobile manipulator “SOAR” for RoboCup 2026 @Home League.
-    Designed as a research and development platform, SOAR advances robotic intelligence through modular hardware, integrated perception–planning–action architecture, and large language model (LLM)-driven behavior generation. 
+    Designed as a research and development platform, SOAR advances robotic intelligence through modular hardware, integrated perception–planning–action architecture, and large language model (LLM)-driven behavior generation.
 	The system combines robust 3D scene fitting, object recognition, and natural language interaction to enable adaptive task execution in domestic environments.
-	Built on ROS 2, SOAR emphasizes reusability, openness, and long-term maintainability. 
+	Built on ROS 2, SOAR emphasizes reusability, openness, and long-term maintainability.
 	This paper details the platform’s hardware modules, key software systems, and contributions to the robotics community, positioning SOAR as a foundation for future intelligent service robots.
 \end{abstract}
 
@@ -131,7 +131,7 @@ We also report our increasing contributions to the robotics community through op
 
 The team has developed various robots over the years with SOAR being one of them.
 SOAR serves as an internal research platform dedicated to advancing robotic intelligence, system integration and modular design.
-Its purpose is not commercialization but to accumulate technical knowledge, test new software architectures, and develop a foundation for the future robotic systems within SoftBank and beyond.
+Its purpose is to accumulate technical knowledge, test new software architectures, and develop a foundation for the future robotic systems within SoftBank and beyond.
 The project's long-term vision is to develop a customizable and affordable robot platform - one that democratizes robotics by making it accessible, adaptable, and sustainable for both research and commercial applications.
 SOAR functions as a stepping stone toward this vision, enabling iterative exploration of technologies that lower the barrier to robotic deployment in diverse domains.
 
@@ -230,7 +230,7 @@ Here we introduce several key software modules that form the core of SOAR's perc
 \subsection{Object Recognition}
 Object recognition is a crucial aspect of SOAR’s perception system, enabling it to identify and interact with various objects in its environment.
 To achieve robust and reliable perception, we combine 2D image-based object detection with 3D point cloud processing.
-We employed Ultralytics YOLOv8\cite{yolov8_ultralytics} for real-time object detection, producing labeled bounding boxes for all recognized objects within the robot’s field of view.
+We employed Ultralytics YOLO11\cite{yolo11_ultralytics} for real-time object detection, producing labeled bounding boxes for all recognized objects within the robot’s field of view.
 These bounding boxes are then used to segment and cluster point cloud data within the detected regions to compute 3D collision boxes and object poses, which are essential for downstream manipulation tasks.
 The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 
@@ -238,12 +238,12 @@ The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 	\centering
 	\begin{subfigure}[t]{0.32\linewidth}
 		\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline1.png}
-		\caption{Detecting cup noodles with YOLOv8.}
+		\caption{Detecting objects with YOLO11.}
 		\label{fig:object_detection_pipeline1}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.32\linewidth}
 		\includegraphics[width=1.0\linewidth]{images/object_detection_pipeline2.png}
-		\caption{Point cloud data and MoveIt planning scene.}
+		\caption{Point cloud data.}
 		\label{fig:object_detection_pipeline2}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.32\linewidth}
@@ -251,7 +251,7 @@ The pipeline is illustrated in Fig. \ref{fig:object_detection_pipeline}.
 		\caption{Generated 3D collision boxes.}
 		\label{fig:object_detection_pipeline3}
 	\end{subfigure}
-	\caption{Object detection pipeline. YOLOv8's bounding box (Fig. \ref{fig:object_detection_pipeline1}) and the point cloud data (Fig. \ref{fig:object_detection_pipeline2}) are used to generate 3D collision boxes (Fig. \ref{fig:object_detection_pipeline3}), which are passed to MoveIt planning scene.}
+	\caption{Object detection pipeline. YOLO11's bounding box (Fig. \ref{fig:object_detection_pipeline1}) and the point cloud data (Fig. \ref{fig:object_detection_pipeline2}) are used to generate 3D collision boxes (Fig. \ref{fig:object_detection_pipeline3})}
 	\label{fig:object_detection_pipeline}
 \end{figure}
 
@@ -264,7 +264,7 @@ The transcribed text is then processed by GPT-4.1 mini \cite{openai2023gpt4} ded
 The responses are converted back into audio using GPT-4o mini TTS.
 
 In addition, we are exploring the use of the ChatGPT Realtime API\cite{realtimeapi}, which supports low-latency, streaming interactions, and dynamic interaction where responses can be interrupted, updated, or redirected mid-generation based on new user input.
-To support this real-time conversational loop, we used Google's WebRTC AE3 echo canceller \cite{webRTC} to suppress audio feedback from the robot’s own speakers, preventing them from being captured by the microphone.
+To support this real-time conversational loop, we used Google's WebRTC AEC3 \cite{webRTC} to suppress audio feedback from the robot’s own speakers, preventing them from being captured by the microphone.
 This enables continuous, overlapping dialogue, allowing the user to speak even while the robot is responding, resulting in more natural and fluid human–robot interaction.
 
 \subsection{Behavior}
@@ -281,7 +281,7 @@ A key feature of our current architecture is the use of two separate GPT-4.1 min
 All user input is first processed by the conversational model, which interprets intent, maintains dialogue context, and determines whether the user's request requires the robot to act.
 If an action is required, the conversational model passes the request to the task-planning model, which generates a sequence of SMACH states to execute the task.
 
-The behavior pipeline along with its speech interaction for the GPSR task is illustrated in Fig. \ref{fig:gpsr}. 
+The behavior pipeline along with its speech interaction for the GPSR task is illustrated in Fig. \ref{fig:gpsr}.
 
 \begin{figure}[tbp]
 	\centering
@@ -297,7 +297,7 @@ These subtle changes can introduce significant risks during manipulation, as the
 To address this, we developed a scene fitting process that aligns its internal scene model with the current environment before performing manipulation tasks.
 
 During the mapping phase, SOAR records the point cloud and the pose of key furniture surfaces involved in manipulation tasks, such as tables and shelves.
-At runtime, the robot captures the corresponding surface and applies a multi-stage ICP alignment to register the current observation with the previously stored model.
+At runtime, the robot captures the corresponding surface and applies a multi-scale ICP alignment to register the current observation with the previously stored model.
 The resulting transformation is used to update the robot internal scene model pose, ensuring that the motion planning accounts for slight environmental changes.
 
 Fig. \ref{fig:scene_fitting} illustrates an example of scene fitting for a table.
